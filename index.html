@@ -9,8 +9,8 @@
   ====================================================== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111521">
-  <title>Estudio/Web · Brief + Mensajería</title>
+  <meta name="theme-color" content="#071522">
+  <title>VEXA Estudio Page · Brief + Mensajería</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -23,9 +23,16 @@
          HEADER: MARCA, ESTADO Y ACCESO AL PANEL PRIVADO.
     ==================================================== -->
     <header class="topbar">
+      <!-- ===================================================
+           MARCA: identidad visual de VEXA ESTUDIO PAGE.
+      ==================================================== -->
       <div class="brand-block">
-        <div class="brand">ESTUDIO<span>/</span>WEB</div>
-        <div class="brand-subtitle">Brief + recepción de contenido</div>
+        <div class="brand">
+          <span class="brand-name">VEXA</span>
+          <span class="brand-divider">/</span>
+          <span class="brand-page">ESTUDIO PAGE</span>
+        </div>
+        <div class="brand-subtitle">Diseño y desarrollo web para emprendedores</div>
       </div>
       <div class="topbar-actions">
         <span id="connectionBadge" class="status-badge"><i></i> Servidor conectado</span>
@@ -39,11 +46,13 @@
     <main id="clientView" class="client-view">
       <section class="hero-card">
         <div>
-          <div class="eyebrow">Empecemos con una buena base</div>
-          <h1>Enviá toda la información de tu proyecto desde un solo lugar.</h1>
-          <p>Tu proyecto merece una web que lo haga crecer. Contanos qué tenés en mente, compartí tus productos e imágenes y ayudanos a conocer tu marca. Con tu información, podremos empezar a darle forma a una web pensada para vos y tus clientes.</p>
+          <div class="eyebrow">VEXA · ESTUDIO PAGE</div>
+          <h1>Convertí tu idea en una presencia web que haga crecer tu negocio.</h1>
+          <p>Contanos qué tenés en mente, compartí tus productos e imágenes y dejá que VEXA conozca la esencia de tu emprendimiento. Con tu información, podemos crear una web pensada para representar tu marca y conectar con tus clientes.</p>
         </div>
-        <div class="hero-mark">✦</div>
+        <div class="hero-mark">
+          <img src="assets/vexa-mark.jpg" alt="Símbolo de VEXA Estudio Page">
+        </div>
       </section>
 
       <div class="client-progress card">
@@ -228,7 +237,7 @@
         <aside class="chat-list-panel">
           <div class="panel-header">
             <div>
-              <div class="eyebrow">Recepción</div>
+              <div class="eyebrow">VEXA · RECEPCIÓN</div>
               <h2>Mensajes</h2>
             </div>
             <button id="backToForm" class="icon-button" type="button" title="Volver al formulario">↩</button>
@@ -239,7 +248,7 @@
 
         <section class="chat-panel">
           <div id="emptyChat" class="empty-chat">
-            <div class="empty-logo">✦</div>
+            <div class="empty-logo"><img src="assets/vexa-mark.jpg" alt="VEXA"></div>
             <h3>Seleccioná una conversación</h3>
             <p>Los formularios enviados desde esta web aparecerán acá como mensajes privados.</p>
           </div>
@@ -273,7 +282,7 @@
       <section class="client-chat-shell">
         <header class="client-chat-header">
           <div>
-            <div class="eyebrow">Tu conversación</div>
+            <div class="eyebrow">VEXA · TU CONVERSACIÓN</div>
             <strong id="clientChatTitle">Conversación</strong>
             <span id="clientChatMeta">Podés enviar mensajes y archivos.</span>
           </div>
@@ -296,7 +305,7 @@
       <div class="modal-card">
         <div class="modal-icon">✓</div>
         <h3>Información enviada</h3>
-        <p>El formulario quedó guardado en el servidor. Podés volver a esta conversación desde este navegador para seguir escribiendo.</p>
+        <p>Tu solicitud fue recibida. Podés volver a esta conversación desde este navegador para seguir compartiendo información con VEXA.</p>
         <div class="modal-actions">
           <button id="closeModal" class="secondary-button" type="button">Cerrar</button>
           <button id="openInboxFromModal" class="primary-button" type="button">Seguir conversación</button>
