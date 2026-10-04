@@ -203,3 +203,37 @@ input[type=checkbox]{width:auto;accent-color:var(--accent)}
 
 /* Mensaje cuando todavía no hay conversaciones en la bandeja. */
 .empty-list{padding:30px 18px;color:var(--muted);text-align:center;font-size:12px}
+
+/* =========================================================
+   CHAT DEL CLIENTE CONECTADO AL SERVIDOR.
+========================================================= */
+.client-chat-shell{
+  height:calc(100vh - 120px);
+  min-height:580px;
+  max-width:900px;
+  margin:0 auto;
+  border:1px solid var(--line);
+  border-radius:18px;
+  overflow:hidden;
+  background:#0e121a;
+  box-shadow:var(--shadow);
+  display:grid;
+  grid-template-rows:auto 1fr auto;
+}
+.client-chat-header{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:16px;
+  padding:16px 18px;
+  border-bottom:1px solid var(--line);
+  background:#131923;
+}
+.client-chat-header strong{display:block;font-size:15px}
+.client-chat-header span{display:block;color:var(--muted);font-size:11px;margin-top:3px}
+.client-message-area{min-height:0}
+.status-badge.is-error i{background:#ff7070;box-shadow:0 0 10px rgba(255,112,112,.4)}
+
+@media (max-width:760px){
+  .client-chat-shell{height:100vh;min-height:0;border-radius:0;border-left:0;border-right:0}
+}

@@ -28,7 +28,7 @@
         <div class="brand-subtitle">Brief + recepción de contenido</div>
       </div>
       <div class="topbar-actions">
-        <span id="connectionBadge" class="status-badge"><i></i> Demo local</span>
+        <span id="connectionBadge" class="status-badge"><i></i> Servidor conectado</span>
         <button id="adminButton" class="ghost-button" type="button">Panel privado</button>
       </div>
     </header>
@@ -141,7 +141,7 @@
 
           <div id="productsList" class="products-list"></div>
           <button id="addProduct" class="secondary-button" type="button">+ Agregar otro producto</button>
-          <div class="info-note">Los archivos quedan guardados con este envío. En esta versión de prueba se almacenan en el navegador; cuando montemos el servidor, pasarán a almacenarse en el servidor real.</div>
+          <div class="info-note">Los archivos se guardan en el servidor privado y quedan asociados a esta conversación. Las fotos y videos no quedan almacenados en este navegador.</div>
         </section>
 
         <!-- =================================================
@@ -213,7 +213,7 @@
         <div class="submit-bar">
           <div>
             <strong>Todo listo</strong>
-            <p>Al enviar, el brief se convierte en una nueva conversación en tu bandeja privada.</p>
+            <p>Al enviar, el brief se guarda en el servidor y se convierte en una nueva conversación en tu bandeja privada.</p>
           </div>
           <button class="primary-button" type="submit">Enviar información <span>↗</span></button>
         </div>
@@ -267,16 +267,39 @@
     </main>
 
     <!-- ===================================================
+         VISTA CLIENTE: CHAT REMOTO DE LA CONVERSACIÓN.
+    ==================================================== -->
+    <main id="clientChatView" class="inbox-view hidden">
+      <section class="client-chat-shell">
+        <header class="client-chat-header">
+          <div>
+            <div class="eyebrow">Tu conversación</div>
+            <strong id="clientChatTitle">Conversación</strong>
+            <span id="clientChatMeta">Podés enviar mensajes y archivos.</span>
+          </div>
+          <button id="closeClientChat" class="icon-button" type="button" title="Volver al formulario">↩</button>
+        </header>
+        <div id="clientMessageArea" class="message-area client-message-area"></div>
+        <form id="clientReplyForm" class="reply-bar">
+          <button class="icon-button" id="clientAttachReply" type="button" title="Adjuntar archivos">＋</button>
+          <input id="clientReplyFiles" type="file" multiple hidden accept="image/*,video/*">
+          <input id="clientReplyText" type="text" placeholder="Escribí un mensaje…" autocomplete="off">
+          <button class="send-button" type="submit" title="Enviar">➤</button>
+        </form>
+      </section>
+    </main>
+
+    <!-- ===================================================
          MODAL: CONFIRMACIÓN DE ENVÍO Y ACCESO A LA BANDEJA.
     ==================================================== -->
     <div id="successModal" class="modal hidden">
       <div class="modal-card">
         <div class="modal-icon">✓</div>
         <h3>Información enviada</h3>
-        <p>El formulario se guardó como una nueva conversación. En el futuro, este paso enviará la información al servidor real.</p>
+        <p>El formulario quedó guardado en el servidor. Podés volver a esta conversación desde este navegador para seguir escribiendo.</p>
         <div class="modal-actions">
           <button id="closeModal" class="secondary-button" type="button">Cerrar</button>
-          <button id="openInboxFromModal" class="primary-button" type="button">Ver bandeja privada</button>
+          <button id="openInboxFromModal" class="primary-button" type="button">Seguir conversación</button>
         </div>
       </div>
     </div>
@@ -285,6 +308,7 @@
   <!-- =====================================================
        ARCHIVOS EXTERNOS: CSS + JS.
   ====================================================== -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
   <script src="app.js" defer></script>
 </body>
 </html>
