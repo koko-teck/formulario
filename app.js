@@ -8,6 +8,9 @@
    - La bandeja privada se actualiza automáticamente.
 ========================================================= */
 
+// =========================================================
+// 01. CONFIGURACIÓN: conexión con Supabase y preferencias.
+// =========================================================
 const APP_CONFIG = {
   supabaseUrl: 'https://fuojhhwntbnbqzhawuqm.supabase.co',
   supabasePublishableKey: 'sb_publishable_Ime3oA6aEjRsRkWaNFjpEA_Y8OnE_qJ',
@@ -21,6 +24,9 @@ const supabaseClient = window.supabase.createClient(
   APP_CONFIG.supabasePublishableKey
 );
 
+// =========================================================
+// 02. ESTADO DE LA APLICACIÓN: datos temporales y sesiones.
+// =========================================================
 let currentThreadId = null;
 let allThreadsCache = [];
 let productCount = 0;
@@ -28,6 +34,9 @@ let adminPoll = null;
 let clientPoll = null;
 let clientConversationId = localStorage.getItem(APP_CONFIG.clientConversationKey) || null;
 
+// =========================================================
+// 03. REFERENCIAS HTML: elementos que controla JavaScript.
+// =========================================================
 const el = {
   clientView: document.getElementById('clientView'),
   clientChatView: document.getElementById('clientChatView'),
@@ -67,10 +76,16 @@ const el = {
   closeClientChat: document.getElementById('closeClientChat')
 };
 
+// ---------------------------------------------------------
+// GESTIÓN DE ERRORES: prepara mensajes claros para el usuario.
+// ---------------------------------------------------------
 function apiError(data, fallback='Ocurrió un error.') {
   return new Error(data?.error || fallback);
 }
 
+// ---------------------------------------------------------
+// RESPUESTAS HTTP: valida y convierte la respuesta del servidor.
+// ---------------------------------------------------------
 async function readJsonResponse(response) {
   let data = null;
   try { data = await response.json(); } catch (_) {}
@@ -78,11 +93,17 @@ async function readJsonResponse(response) {
   return data || {};
 }
 
+// ---------------------------------------------------------
+// AUTENTICACIÓN: recupera el token de la sesión administradora.
+// ---------------------------------------------------------
 async function getAdminToken() {
   const { data } = await supabaseClient.auth.getSession();
   return data.session?.access_token || null;
 }
 
+// ---------------------------------------------------------
+// PETICIONES PRIVADAS: llama a la API con permisos de administrador.
+// ---------------------------------------------------------
 async function adminFetch(path, options={}) {
   let token = await getAdminToken();
   if (!token) throw new Error('Iniciá sesión como administrador.');
@@ -99,11 +120,17 @@ async function adminFetch(path, options={}) {
   return readJsonResponse(response);
 }
 
+// ---------------------------------------------------------
+// PETICIONES PÚBLICAS: consulta la API sin sesión administrativa.
+// ---------------------------------------------------------
 async function publicFetch(path, options={}) {
   const response = await fetch(`${APP_CONFIG.functionUrl}${path}`, options);
   return readJsonResponse(response);
 }
 
+// ---------------------------------------------------------
+// ESTADO DE CONEXIÓN: actualiza el indicador visual del servidor.
+// ---------------------------------------------------------
 function setConnection(ok, text) {
   const badge = document.getElementById('connectionBadge');
   if (!badge) return;
@@ -111,6 +138,9 @@ function setConnection(ok, text) {
   badge.classList.toggle('is-error', !ok);
 }
 
+// ---------------------------------------------------------
+// PRODUCTOS: agrega al formulario un nuevo producto editable.
+// ---------------------------------------------------------
 function addProduct() {
   productCount += 1;
   const number = productCount;
@@ -159,6 +189,9 @@ function addProduct() {
   updateProgress();
 }
 
+// ---------------------------------------------------------
+// PRODUCTOS: mantiene la numeración ordenada.
+// ---------------------------------------------------------
 function renumberProducts() {
   const cards = [...document.querySelectorAll('.product-card')];
   cards.forEach((card, index) => {
@@ -168,6 +201,9 @@ function renumberProducts() {
   productCount = cards.length;
 }
 
+// ---------------------------------------------------------
+// ARCHIVOS: muestra una vista previa de imágenes y videos elegidos.
+// ---------------------------------------------------------
 function previewFiles(input, target) {
   target.innerHTML = '';
   [...input.files].forEach(file => {
@@ -198,6 +234,9 @@ function previewFiles(input, target) {
   });
 }
 
+// ---------------------------------------------------------
+// PROGRESO: calcula y actualiza cuánto se completó del formulario.
+// ---------------------------------------------------------
 function updateProgress() {
   const fields = [...el.briefForm.querySelectorAll('input:not([type=checkbox]):not([type=file]):not([type=radio]),textarea,select')].filter(field => field.name);
   const filled = fields.filter(field => String(field.value || '').trim()).length;
@@ -208,6 +247,9 @@ function updateProgress() {
   el.progressText.textContent = `${pct}% completado`;
 }
 
+// ---------------------------------------------------------
+// FORMULARIO: recopila los campos generales del negocio.
+// ---------------------------------------------------------
 function collectFormData() {
   const formData = new FormData(el.briefForm);
   const data = {};
@@ -222,6 +264,9 @@ function collectFormData() {
   return data;
 }
 
+// ---------------------------------------------------------
+// PRODUCTOS: recopila la información de los productos cargados.
+// ---------------------------------------------------------
 function collectProducts() {
   return [...document.querySelectorAll('.product-card')].map((card, index) => {
     const product = {numero:index + 1, datos:{}, files:[]};
@@ -234,10 +279,16 @@ function collectProducts() {
   });
 }
 
+// ---------------------------------------------------------
+// ARCHIVOS DE MARCA: recopila imágenes y materiales adjuntos.
+// ---------------------------------------------------------
 function collectBrandFiles() {
   return [...el.brandFiles.files];
 }
 
+// ---------------------------------------------------------
+// SOLICITUD: reúne los datos en una estructura lista para enviar.
+// ---------------------------------------------------------
 function buildBrief(data, products, brandFiles) {
   return {
     ...data,
@@ -250,6 +301,9 @@ function buildBrief(data, products, brandFiles) {
   };
 }
 
+// ---------------------------------------------------------
+// ENVÍO: valida y envía la solicitud al servidor.
+// ---------------------------------------------------------
 async function submitBrief() {
   if (!el.briefForm.reportValidity()) {
     el.briefForm.querySelector(':invalid')?.scrollIntoView({behavior:'smooth', block:'center'});
@@ -274,6 +328,9 @@ async function submitBrief() {
   return result;
 }
 
+// ---------------------------------------------------------
+// FORMULARIO: limpia los campos para una nueva carga.
+// ---------------------------------------------------------
 function resetBriefForm() {
   el.briefForm.reset();
   el.productsList.innerHTML = '';
@@ -283,6 +340,9 @@ function resetBriefForm() {
   updateProgress();
 }
 
+// ---------------------------------------------------------
+// CHAT DEL CLIENTE: abre la conversación del cliente.
+// ---------------------------------------------------------
 function showClientChat() {
   if (!clientConversationId) return;
   stopPolling(adminPoll);
@@ -295,6 +355,9 @@ function showClientChat() {
   history.replaceState(null, '', `#chat=${encodeURIComponent(clientConversationId)}`);
 }
 
+// ---------------------------------------------------------
+// CHAT DEL CLIENTE: obtiene los mensajes y archivos de la conversación.
+// ---------------------------------------------------------
 async function loadClientChat() {
   if (!clientConversationId) return;
   try {
@@ -309,6 +372,9 @@ async function loadClientChat() {
   }
 }
 
+// ---------------------------------------------------------
+// CHAT DEL CLIENTE: envía una respuesta desde el lado del cliente.
+// ---------------------------------------------------------
 async function sendClientReply(event) {
   event.preventDefault();
   if (!clientConversationId) return;
@@ -329,6 +395,9 @@ async function sendClientReply(event) {
   await loadClientChat();
 }
 
+// ---------------------------------------------------------
+// PANEL PRIVADO: muestra el acceso de administración.
+// ---------------------------------------------------------
 function openAdmin() {
   supabaseClient.auth.getSession().then(({data}) => {
     if (data.session) {
@@ -343,6 +412,9 @@ function openAdmin() {
   });
 }
 
+// ---------------------------------------------------------
+// PANEL PRIVADO: inicia la sesión del administrador.
+// ---------------------------------------------------------
 async function signInAdmin(email, password) {
   try {
     setConnection(true, 'Iniciando sesión…');
@@ -356,6 +428,9 @@ async function signInAdmin(email, password) {
   }
 }
 
+// ---------------------------------------------------------
+// BANDEJA: abre la lista privada de conversaciones.
+// ---------------------------------------------------------
 async function showInbox() {
   const token = await getAdminToken();
   if (!token) {
@@ -372,6 +447,9 @@ async function showInbox() {
   adminPoll = setInterval(refreshConversations, APP_CONFIG.pollMs);
 }
 
+// ---------------------------------------------------------
+// BANDEJA: actualiza las conversaciones desde el servidor.
+// ---------------------------------------------------------
 async function refreshConversations() {
   try {
     const data = await adminFetch('/conversations');
@@ -385,6 +463,9 @@ async function refreshConversations() {
   }
 }
 
+// ---------------------------------------------------------
+// BANDEJA: dibuja y filtra la lista de conversaciones.
+// ---------------------------------------------------------
 function renderChatList(filter='') {
   const query = filter.trim().toLowerCase();
   const visible = allThreadsCache.filter(thread => {
@@ -413,6 +494,9 @@ function renderChatList(filter='') {
   });
 }
 
+// ---------------------------------------------------------
+// CONVERSACIONES: abre una conversación seleccionada.
+// ---------------------------------------------------------
 async function openThread(threadId, redrawList=true) {
   currentThreadId = threadId;
   try {
@@ -431,6 +515,9 @@ async function openThread(threadId, redrawList=true) {
   }
 }
 
+// ---------------------------------------------------------
+// MENSAJES: dibuja mensajes y archivos adjuntos en pantalla.
+// ---------------------------------------------------------
 function renderRemoteMessages(target, messages, attachments, perspective) {
   target.innerHTML = '';
   const grouped = new Map();
@@ -474,6 +561,9 @@ function renderRemoteMessages(target, messages, attachments, perspective) {
   requestAnimationFrame(() => { target.scrollTop = target.scrollHeight; });
 }
 
+// ---------------------------------------------------------
+// MENSAJES: envía una respuesta desde el panel privado.
+// ---------------------------------------------------------
 async function sendReply(event) {
   event.preventDefault();
   if (!currentThreadId) return;
@@ -495,6 +585,9 @@ async function sendReply(event) {
   }
 }
 
+// ---------------------------------------------------------
+// DESCARGAS: reúne los archivos de una conversación en un ZIP.
+// ---------------------------------------------------------
 async function downloadThreadZip() {
   if (!currentThreadId) return;
   try {
@@ -532,6 +625,7 @@ async function downloadThreadZip() {
   }
 }
 
+// ZIP: tabla usada por el cálculo de integridad CRC32.
 const CRC_TABLE = (() => {
   const table = new Uint32Array(256);
   for (let n = 0; n < 256; n++) {
@@ -541,11 +635,17 @@ const CRC_TABLE = (() => {
   }
   return table;
 })();
+// ---------------------------------------------------------
+// ZIP: calcula el control de integridad de los archivos.
+// ---------------------------------------------------------
 function crc32(data) {
   let crc = 0xffffffff;
   for (const byte of data) crc = CRC_TABLE[(crc ^ byte) & 0xff] ^ (crc >>> 8);
   return (crc ^ 0xffffffff) >>> 0;
 }
+// ---------------------------------------------------------
+// ZIP: construye el archivo comprimido para descargar.
+// ---------------------------------------------------------
 function buildZip(entries) {
   const encoder = new TextEncoder();
   const localParts = [];
@@ -576,6 +676,9 @@ function buildZip(entries) {
   ev.setUint32(0, 0x06054b50, true); ev.setUint16(4, 0, true); ev.setUint16(6, 0, true); ev.setUint16(8, entries.length, true); ev.setUint16(10, entries.length, true); ev.setUint32(12, centralSize, true); ev.setUint32(16, offset, true); ev.setUint16(20, 0, true);
   return concatUint8Arrays([...localParts, ...centralParts, end]);
 }
+// ---------------------------------------------------------
+// ZIP: une bloques binarios para crear el archivo final.
+// ---------------------------------------------------------
 function concatUint8Arrays(parts) {
   const total = parts.reduce((sum, part) => sum + part.length, 0);
   const out = new Uint8Array(total); let cursor = 0;
@@ -583,10 +686,16 @@ function concatUint8Arrays(parts) {
   return out;
 }
 
+// ---------------------------------------------------------
+// ACTUALIZACIÓN AUTOMÁTICA: detiene una consulta periódica.
+// ---------------------------------------------------------
 function stopPolling(handle) {
   if (handle) clearInterval(handle);
 }
 
+// ---------------------------------------------------------
+// NAVEGACIÓN: vuelve a mostrar el formulario del cliente.
+// ---------------------------------------------------------
 function showForm() {
   stopPolling(adminPoll); stopPolling(clientPoll);
   el.inboxView.classList.add('hidden');
@@ -595,13 +704,25 @@ function showForm() {
   history.replaceState(null, '', '#form');
 }
 
+// ---------------------------------------------------------
+// SEGURIDAD: evita que texto del usuario se interprete como HTML.
+// ---------------------------------------------------------
 function escapeHtml(value) {
   return String(value ?? '').replace(/[&<>'"]/g, char => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[char]));
 }
+// ---------------------------------------------------------
+// SEGURIDAD: normaliza segmentos usados en nombres o rutas.
+// ---------------------------------------------------------
 function safeSegment(value) {
   return String(value || 'archivo').replace(/[^a-zA-Z0-9ÁÉÍÓÚáéíóúÑñ _.-]/g, '-').replace(/\s+/g, '-').slice(0, 80) || 'archivo';
 }
+// ---------------------------------------------------------
+// FECHAS: muestra la hora en formato local.
+// ---------------------------------------------------------
 function formatClock(date) { return new Intl.DateTimeFormat('es-AR', {hour:'2-digit', minute:'2-digit'}).format(new Date(date)); }
+// ---------------------------------------------------------
+// FECHAS: muestra hora o fecha breve en la bandeja.
+// ---------------------------------------------------------
 function formatListTime(date) { const d=new Date(date), now=new Date(); if(d.toDateString()===now.toDateString()) return formatClock(date); return new Intl.DateTimeFormat('es-AR',{day:'2-digit',month:'2-digit'}).format(d); }
 
 el.briefForm.addEventListener('submit', async event => {

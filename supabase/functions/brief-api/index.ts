@@ -5,6 +5,9 @@
 // =========================================================
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
+// =========================================================
+// 01. CONFIGURACIÓN HTTP: permisos CORS y límites de archivos.
+// =========================================================
 const corsHeaders = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Headers": "authorization, x-client-info, apikey, content-type",
@@ -14,6 +17,9 @@ const corsHeaders = {
 const MAX_FILE_SIZE = 25 * 1024 * 1024;
 const MAX_FILES_PER_REQUEST = 30;
 
+// =========================================================
+// 02. UTILIDADES Y ACCESO A DATOS: respuestas y conexión segura.
+// =========================================================
 const json = (body: unknown, status = 200) => new Response(JSON.stringify(body), {
   status,
   headers: { ...corsHeaders, "Content-Type": "application/json" },
@@ -28,6 +34,9 @@ const getDb = () => {
 
 const getAdminEmail = () => (Deno.env.get("ADMIN_EMAIL") || "").trim().toLowerCase();
 
+// =========================================================
+// 03. SEGURIDAD: valida que la petición pertenezca al administrador.
+// =========================================================
 async function requireAdmin(req: Request) {
   const bearer = req.headers.get("Authorization") || "";
   const token = bearer.replace(/^Bearer\s+/i, "");
@@ -48,6 +57,9 @@ async function requireAdmin(req: Request) {
   return data.user;
 }
 
+// =========================================================
+// 04. VALIDACIÓN: limita la cantidad y el tamaño de los archivos.
+// =========================================================
 function checkFiles(files: File[]) {
   if (files.length > MAX_FILES_PER_REQUEST) throw new Error(`Máximo ${MAX_FILES_PER_REQUEST} archivos por envío.`);
   for (const file of files) {
@@ -55,6 +67,9 @@ function checkFiles(files: File[]) {
   }
 }
 
+// =========================================================
+// 05. ARCHIVOS: sube adjuntos al almacenamiento privado y registra sus datos.
+// =========================================================
 async function uploadAttachments(db: ReturnType<typeof getDb>, conversationId: string, messageId: string, files: File[]) {
   const uploaded: Array<{ id: string; name: string; path: string; type: string }> = [];
   for (const file of files) {
@@ -80,6 +95,9 @@ async function uploadAttachments(db: ReturnType<typeof getDb>, conversationId: s
   return uploaded;
 }
 
+// =========================================================
+// 06. API PRINCIPAL: enruta las solicitudes entrantes del formulario y chat.
+// =========================================================
 Deno.serve(async (req) => {
   if (req.method === "OPTIONS") return new Response("ok", { headers: corsHeaders });
 
