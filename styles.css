@@ -1,0 +1,205 @@
+/* =========================================================
+   ARCHIVO: styles.css
+   FUNCIÓN: controla colores, espacios, tipografías,
+   tarjetas, formulario y la interfaz tipo WhatsApp.
+   La paleta conserva el estilo oscuro del formulario anterior.
+========================================================= */
+
+:root{
+  --paper:#0b0e14;
+  --panel:#151a24;
+  --panel-2:#10151e;
+  --panel-3:#1a2130;
+  --panel-4:#242644;
+  --line:#343b4d;
+  --line-soft:#2a3141;
+  --ink:#edf0f8;
+  --muted:#a0a9bb;
+  --muted-2:#788397;
+  --accent:#8b8cff;
+  --accent-2:#a5b4fc;
+  --good:#7fe2ba;
+  --danger:#ff8b9a;
+  --shadow:0 20px 60px rgba(0,0,0,.28);
+  --radius:18px;
+}
+
+/* Reinicio básico para que el diseño sea consistente. */
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--paper);color:var(--ink);font:15px/1.55 Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+button,input,textarea,select{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+/* =========================================================
+   BARRA SUPERIOR.
+========================================================= */
+.topbar{height:76px;border-bottom:1px solid var(--line-soft);background:rgba(11,14,20,.9);backdrop-filter:blur(16px);display:flex;align-items:center;justify-content:space-between;padding:0 clamp(18px,4vw,54px);position:sticky;top:0;z-index:20}
+.brand{font-size:15px;font-weight:900;letter-spacing:.04em}
+.brand span{color:var(--accent-2)}
+.brand-subtitle{color:var(--muted);font-size:11px;margin-top:2px}
+.topbar-actions{display:flex;align-items:center;gap:10px}
+.status-badge{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:999px;padding:7px 10px;color:var(--muted);font-size:11px}
+.status-badge i{width:7px;height:7px;border-radius:50%;background:var(--good);box-shadow:0 0 10px rgba(127,226,186,.45)}
+.ghost-button,.icon-button,.secondary-button,.primary-button,.chat-action,.send-button{border:0}
+.ghost-button{background:var(--panel-3);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:10px 13px;font-weight:700;font-size:12px}
+
+/* =========================================================
+   VISTA CLIENTE + HERO.
+========================================================= */
+.client-view{max-width:1100px;margin:0 auto;padding:28px 18px 70px}
+.hero-card{background:linear-gradient(120deg,#080b11 0%,#171d2c 52%,#292b68 100%);border:1px solid #373f59;border-radius:24px;padding:34px;display:flex;align-items:center;justify-content:space-between;gap:28px;box-shadow:var(--shadow);margin-bottom:18px}
+.eyebrow{color:#b8c2ff;text-transform:uppercase;letter-spacing:.16em;font-size:10px;font-weight:900}
+.hero-card h1{font-size:clamp(27px,5vw,46px);line-height:1.08;max-width:760px;margin:10px 0}
+.hero-card p{color:#d4d9e8;max-width:720px;margin:14px 0 0}
+.hero-mark{width:84px;height:84px;min-width:84px;border-radius:24px;display:grid;place-items:center;background:rgba(139,140,255,.14);border:1px solid rgba(165,180,252,.28);font-size:34px;color:var(--accent-2)}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:var(--radius);box-shadow:0 10px 28px rgba(0,0,0,.14)}
+.client-progress{padding:16px 20px;margin-bottom:18px}
+.progress-title{display:flex;justify-content:space-between;gap:15px;font-size:12px;color:var(--muted);margin-bottom:9px}
+.progress-title strong{color:var(--ink)}
+.progress-track{height:6px;background:#282f3e;border-radius:99px;overflow:hidden}
+.progress-fill{height:100%;width:0;background:linear-gradient(90deg,var(--accent),var(--accent-2));transition:width .2s ease}
+
+/* =========================================================
+   SECCIONES DEL FORMULARIO.
+========================================================= */
+.form-section{padding:26px;margin-bottom:18px}
+.section-heading{display:flex;gap:14px;align-items:flex-start;margin-bottom:24px}
+.section-icon{width:42px;height:42px;border-radius:13px;background:#292b4b;color:#b9bbff;display:grid;place-items:center;font-size:12px;font-weight:900;flex-shrink:0}
+.section-heading h2{font-size:20px;letter-spacing:-.025em;margin:0 0 4px}
+.section-heading p{margin:0;color:var(--muted);font-size:13px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:17px}
+.field{display:block;margin-bottom:17px}
+.field>span,.field-label{display:block;font-size:13px;font-weight:800;margin-bottom:7px}
+.field small{font-weight:400;color:var(--muted)}
+.field b,.confirm-choice b{color:var(--danger)}
+input,textarea,select{width:100%;border:1px solid #3a4356;border-radius:10px;background:#10151e;padding:12px 13px;color:var(--ink);outline:none;transition:border .15s,box-shadow .15s}
+input:focus,textarea:focus,select:focus{border-color:var(--accent);box-shadow:0 0 0 3px rgba(139,140,255,.12)}
+textarea{resize:vertical;min-height:108px}
+input::placeholder,textarea::placeholder{color:#737e91}
+input[type=checkbox]{width:auto;accent-color:var(--accent)}
+.choice-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:9px}
+.choice,.confirm-choice{display:flex;align-items:center;gap:8px;border:1px solid var(--line);border-radius:10px;padding:10px 12px;font-size:13px;background:#111620}
+.confirm-choice{align-items:flex-start;margin-top:5px;line-height:1.4}
+.confirm-choice input{margin-top:4px}
+.social-row{display:grid;grid-template-columns:135px 1fr;gap:12px;align-items:center;margin-bottom:12px}
+.social-row strong{font-size:13px}
+
+/* =========================================================
+   BLOQUE DE ARCHIVOS Y PREVISUALIZACIONES.
+========================================================= */
+.file-box{display:grid;grid-template-columns:auto 1fr auto;gap:14px;align-items:center;border:1.5px dashed #485169;border-radius:13px;padding:17px;background:#111620}
+.file-box-icon{width:40px;height:40px;border-radius:11px;background:#262a49;color:#b9bbff;display:grid;place-items:center;font-size:20px}
+.file-box strong{font-size:13px}
+.file-box p{font-size:12px;color:var(--muted);margin:2px 0 0}
+.file-button{border:1px solid #5557a2;background:#252644;color:#d6d7ff;border-radius:10px;padding:10px 13px;font:700 12px inherit;text-align:center;cursor:pointer}
+.file-button input{display:none}
+.preview-grid{display:flex;flex-wrap:wrap;gap:9px;margin-top:12px}
+.preview{position:relative;width:92px;height:92px;border:1px solid var(--line);border-radius:11px;overflow:hidden;background:#202635}
+.preview img,.preview video{width:100%;height:100%;object-fit:cover}
+.preview-name{position:absolute;bottom:0;left:0;right:0;background:rgba(8,11,17,.88);color:#fff;font-size:9px;padding:4px;text-align:center;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.products-list{margin-top:14px}
+.product-card{border:1px solid var(--line);border-radius:14px;padding:18px;margin:14px 0;background:#111620}
+.product-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}
+.product-top strong{font-size:14px}
+.remove-button{border:0;background:#3a2029;color:#ffb6c1;border-radius:8px;padding:7px 10px;font-size:12px}
+.secondary-button{border:1px solid #5557a2;background:#252644;color:#d6d7ff;border-radius:10px;padding:11px 14px;font-weight:800;font-size:13px}
+.info-note{background:#1b2234;border:1px solid #303d5b;color:#c1ccef;border-radius:12px;padding:13px 15px;font-size:12px;margin-top:14px}
+
+/* =========================================================
+   BARRA DE ENVÍO.
+========================================================= */
+.submit-bar{display:flex;justify-content:space-between;align-items:center;gap:20px;padding:4px 0 20px}
+.submit-bar strong{font-size:14px}
+.submit-bar p{font-size:12px;color:var(--muted);margin:4px 0 0;max-width:650px}
+.primary-button{background:var(--accent);color:#101322;padding:14px 18px;border-radius:11px;font-weight:900;box-shadow:0 9px 18px rgba(139,140,255,.14);transition:.16s ease}
+.primary-button:hover{transform:translateY(-1px);background:#a5a6ff}
+
+/* =========================================================
+   VISTA PRIVADA TIPO WHATSAPP.
+========================================================= */
+.inbox-view{padding:22px;min-height:calc(100vh - 76px);background:radial-gradient(circle at top left,#171b2b 0,#0b0e14 38%)}
+.inbox-shell{height:calc(100vh - 120px);min-height:580px;max-width:1250px;margin:0 auto;border:1px solid var(--line);border-radius:18px;overflow:hidden;background:#0e121a;display:grid;grid-template-columns:330px 1fr;box-shadow:var(--shadow)}
+.chat-list-panel{border-right:1px solid var(--line);display:flex;flex-direction:column;background:#111620}
+.panel-header{padding:19px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between;align-items:center}
+.panel-header h2{margin:4px 0 0;font-size:22px}
+.icon-button{width:36px;height:36px;border-radius:10px;background:#1d2432;color:var(--ink);border:1px solid var(--line);display:grid;place-items:center}
+.search-box{margin:12px;border-radius:10px;background:#0d121a;border:1px solid var(--line);display:flex;align-items:center;gap:8px;padding:0 10px}
+.search-box span{color:var(--muted)}
+.search-box input{border:0;background:transparent;box-shadow:none;padding:10px 0}
+.chat-list{overflow:auto;padding:4px 0 10px}
+.chat-item{display:grid;grid-template-columns:48px 1fr auto;gap:11px;align-items:center;padding:12px 14px;border-bottom:1px solid rgba(52,59,77,.45);cursor:pointer;transition:.12s ease}
+.chat-item:hover,.chat-item.active{background:#1a2030}
+.chat-avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(145deg,#292b68,#1a1f39);border:1px solid #4b4f84;display:grid;place-items:center;font-weight:900;color:#d9dcff}
+.chat-preview strong{display:block;font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-preview span{display:block;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-time{align-self:start;color:var(--muted-2);font-size:10px}
+.chat-panel{position:relative;min-width:0;background:#0b0f16}
+.empty-chat{height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:30px}
+.empty-logo{width:80px;height:80px;border-radius:24px;display:grid;place-items:center;background:#1f2342;border:1px solid #3b4172;color:var(--accent-2);font-size:34px;margin-bottom:15px}
+.empty-chat h3{margin:0 0 6px;font-size:20px}
+.empty-chat p{max-width:440px;color:var(--muted);font-size:13px}
+.active-chat{height:100%;display:grid;grid-template-rows:auto 1fr auto}
+.chat-header{display:flex;align-items:center;gap:11px;padding:12px 16px;border-bottom:1px solid var(--line);background:#131923}
+.avatar{width:42px;height:42px;border-radius:50%;background:linear-gradient(145deg,#292b68,#1a1f39);border:1px solid #4b4f84;display:grid;place-items:center;font-weight:900;color:#d9dcff}
+.chat-person{min-width:0;flex:1}
+.chat-person strong{display:block;font-size:14px}
+.chat-person span{display:block;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-action{background:#1e2534;color:#d9dcff;border:1px solid var(--line);padding:9px 11px;border-radius:10px;font-size:11px;font-weight:800}
+.message-area{overflow:auto;padding:22px;background:radial-gradient(circle at top right,rgba(41,43,104,.15),transparent 40%),#0b0f16}
+.message-row{display:flex;margin:7px 0}
+.message-row.incoming{justify-content:flex-start}
+.message-row.outgoing{justify-content:flex-end}
+.bubble{max-width:min(760px,88%);padding:11px 13px;border-radius:13px;border:1px solid var(--line);background:#171d29;box-shadow:0 8px 20px rgba(0,0,0,.12)}
+.outgoing .bubble{background:#27284a;border-color:#43467f}
+.bubble-meta{margin-top:5px;color:var(--muted-2);font-size:9px;text-align:right}
+.bubble-title{font-weight:900;margin-bottom:6px;font-size:13px}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-top:8px}
+.detail-item{background:#0e131b;border:1px solid #232b3b;border-radius:8px;padding:8px}
+.detail-item small{display:block;color:var(--muted);font-size:9px;text-transform:uppercase;letter-spacing:.08em}
+.detail-item strong{display:block;font-size:11px;margin-top:2px;word-break:break-word}
+.file-chip{display:flex;align-items:center;gap:8px;background:#0e131b;border:1px solid #2d3545;border-radius:9px;padding:8px;margin-top:7px}
+.file-chip span{font-size:11px;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.file-chip small{color:var(--muted);font-size:9px}
+.reply-bar{display:grid;grid-template-columns:38px 1fr 40px;gap:8px;align-items:center;padding:10px;border-top:1px solid var(--line);background:#131923}
+.reply-bar input[type=text]{background:#0d121a;border-radius:12px}
+.send-button{width:40px;height:40px;border-radius:11px;background:var(--accent);color:#101322;font-weight:900}
+
+/* =========================================================
+   MODAL DE ÉXITO.
+========================================================= */
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.62);display:grid;place-items:center;z-index:50;padding:20px}
+.modal-card{max-width:460px;width:100%;background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:28px;box-shadow:var(--shadow)}
+.modal-icon{width:52px;height:52px;border-radius:16px;background:#19372d;border:1px solid #2d654f;color:#9aefd0;display:grid;place-items:center;font-size:22px;margin-bottom:14px}
+.modal-card h3{margin:0 0 6px;font-size:22px}
+.modal-card p{margin:0;color:var(--muted);font-size:13px}
+.modal-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:22px}
+
+/* =========================================================
+   RESPONSIVE: adapta el formulario y el chat a celulares.
+========================================================= */
+@media(max-width:880px){
+  .choice-grid{grid-template-columns:1fr 1fr}
+  .inbox-shell{grid-template-columns:280px 1fr}
+}
+@media(max-width:700px){
+  .topbar{height:auto;min-height:70px;gap:10px;padding:12px 14px}
+  .status-badge{display:none}
+  .hero-card{padding:24px}
+  .hero-mark{display:none}
+  .grid-2{grid-template-columns:1fr;gap:0}
+  .choice-grid{grid-template-columns:1fr}
+  .file-box{grid-template-columns:1fr}
+  .submit-bar{flex-direction:column;align-items:stretch}
+  .primary-button{width:100%}
+  .inbox-view{padding:0}
+  .inbox-shell{height:calc(100vh - 70px);min-height:0;border-radius:0;border-left:0;border-right:0;grid-template-columns:1fr}
+  .chat-list-panel{display:none}
+  .chat-panel{min-height:0}
+  .chat-action{display:none}
+  .detail-grid{grid-template-columns:1fr}
+}
+
+/* Mensaje cuando todavía no hay conversaciones en la bandeja. */
+.empty-list{padding:30px 18px;color:var(--muted);text-align:center;font-size:12px}

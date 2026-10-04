@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <!-- =====================================================
+       ARCHIVO: index.html
+       FUNCIÓN: estructura visual de toda la aplicación.
+       Incluye el formulario del cliente y la bandeja privada.
+       El diseño comparte la misma estética del brief anterior.
+  ====================================================== -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#111521">
+  <title>Estudio/Web · Brief + Mensajería</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <!-- =====================================================
+       APP: CONTENEDOR PRINCIPAL DE LA APLICACIÓN.
+  ====================================================== -->
+  <div id="app" class="app-shell">
+
+    <!-- ===================================================
+         HEADER: MARCA, ESTADO Y ACCESO AL PANEL PRIVADO.
+    ==================================================== -->
+    <header class="topbar">
+      <div class="brand-block">
+        <div class="brand">ESTUDIO<span>/</span>WEB</div>
+        <div class="brand-subtitle">Brief + recepción de contenido</div>
+      </div>
+      <div class="topbar-actions">
+        <span id="connectionBadge" class="status-badge"><i></i> Demo local</span>
+        <button id="adminButton" class="ghost-button" type="button">Panel privado</button>
+      </div>
+    </header>
+
+    <!-- ===================================================
+         VISTA CLIENTE: FORMULARIO COMPLETO.
+    ==================================================== -->
+    <main id="clientView" class="client-view">
+      <section class="hero-card">
+        <div>
+          <div class="eyebrow">Empecemos con una buena base</div>
+          <h1>Enviá toda la información de tu proyecto desde un solo lugar.</h1>
+          <p>Completá el brief, agregá productos, fotos y videos. Al tocar enviar, el contenido queda guardado como una conversación dentro de la bandeja de recepción.</p>
+        </div>
+        <div class="hero-mark">✦</div>
+      </section>
+
+      <div class="client-progress card">
+        <div class="progress-title"><strong>Tu brief</strong><span id="progressText">0% completado</span></div>
+        <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
+      </div>
+
+      <form id="briefForm" class="brief-form" novalidate>
+        <!-- =================================================
+             SECCIÓN 01: DATOS DEL NEGOCIO.
+        ================================================== -->
+        <section class="form-section card">
+          <div class="section-heading">
+            <div class="section-icon">01</div>
+            <div>
+              <h2>Conozcamos tu negocio</h2>
+              <p>Información esencial para entender quién sos y qué ofrecés.</p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <label class="field"><span>Nombre del negocio / marca <b>*</b></span><input name="marca" required placeholder="Ej. Casa Nativa"></label>
+            <label class="field"><span>Persona de contacto <b>*</b></span><input name="contacto" required placeholder="Nombre y apellido"></label>
+            <label class="field"><span>Email de contacto <b>*</b></span><input type="email" name="email" required placeholder="hola@tumarca.com"></label>
+            <label class="field"><span>Rubro o actividad</span><input name="rubro" placeholder="Ej. Indumentaria, gastronomía…"></label>
+          </div>
+
+          <label class="field"><span>Contanos brevemente sobre tu negocio</span><textarea name="descripcion" placeholder="¿Qué ofrecés, cómo empezó el proyecto y qué te diferencia?"></textarea></label>
+          <label class="field"><span>¿A qué público apuntás?</span><textarea name="publico" placeholder="Edad, ubicación, tipo de cliente, necesidades, etc."></textarea></label>
+        </section>
+
+        <!-- =================================================
+             SECCIÓN 02: OBJETIVOS Y ESTILO DE LA WEB.
+        ================================================== -->
+        <section class="form-section card">
+          <div class="section-heading">
+            <div class="section-icon">02</div>
+            <div>
+              <h2>La web que imaginás</h2>
+              <p>Objetivos, referencias y decisiones visuales.</p>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="field-label">¿Qué objetivos debería cumplir la web?</span>
+            <div class="choice-grid">
+              <label class="choice"><input type="checkbox" name="objetivos" value="Mostrar productos">Mostrar productos</label>
+              <label class="choice"><input type="checkbox" name="objetivos" value="Conseguir consultas">Conseguir consultas</label>
+              <label class="choice"><input type="checkbox" name="objetivos" value="Vender online">Vender online</label>
+              <label class="choice"><input type="checkbox" name="objetivos" value="Presentar la marca">Presentar la marca</label>
+              <label class="choice"><input type="checkbox" name="objetivos" value="Reservas / turnos">Reservas / turnos</label>
+              <label class="choice"><input type="checkbox" name="objetivos" value="Otro objetivo">Otro objetivo</label>
+            </div>
+          </div>
+
+          <div class="field">
+            <span class="field-label">¿Qué estilo preferís?</span>
+            <div class="choice-grid">
+              <label class="choice"><input type="checkbox" name="estilo" value="Elegante">Elegante</label>
+              <label class="choice"><input type="checkbox" name="estilo" value="Minimalista">Minimalista</label>
+              <label class="choice"><input type="checkbox" name="estilo" value="Moderno">Moderno</label>
+              <label class="choice"><input type="checkbox" name="estilo" value="Premium">Premium</label>
+              <label class="choice"><input type="checkbox" name="estilo" value="Colorido">Colorido</label>
+              <label class="choice"><input type="checkbox" name="estilo" value="Sobrio">Sobrio</label>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <label class="field"><span>Webs de referencia <small>(opcional)</small></span><textarea name="referencias" placeholder="Pegá enlaces o contanos qué sitios te gustan."></textarea></label>
+            <label class="field"><span>Colores o sensaciones que te gustaría usar</span><textarea name="colores" placeholder="Ej. negro, blanco, violeta, tecnológico, cálido…"></textarea></label>
+          </div>
+        </section>
+
+        <!-- =================================================
+             SECCIÓN 03: PRODUCTOS Y ARCHIVOS.
+        ================================================== -->
+        <section class="form-section card">
+          <div class="section-heading">
+            <div class="section-icon">03</div>
+            <div>
+              <h2>Productos y contenido</h2>
+              <p>Cargá los productos y adjuntá fotos o videos directamente desde este formulario.</p>
+            </div>
+          </div>
+
+          <div class="file-box">
+            <div class="file-box-icon">⌁</div>
+            <div>
+              <strong>Fotos y videos generales</strong>
+              <p>Logo, portada, fotos del local u otros materiales que no pertenezcan a un producto.</p>
+            </div>
+            <label class="file-button">Seleccionar archivos<input id="brandFiles" type="file" multiple accept="image/*,video/*"></label>
+          </div>
+          <div id="brandPreviews" class="preview-grid"></div>
+
+          <div id="productsList" class="products-list"></div>
+          <button id="addProduct" class="secondary-button" type="button">+ Agregar otro producto</button>
+          <div class="info-note">Los archivos quedan guardados con este envío. En esta versión de prueba se almacenan en el navegador; cuando montemos el servidor, pasarán a almacenarse en el servidor real.</div>
+        </section>
+
+        <!-- =================================================
+             SECCIÓN 04: REDES Y CONTACTO.
+        ================================================== -->
+        <section class="form-section card">
+          <div class="section-heading">
+            <div class="section-icon">04</div>
+            <div>
+              <h2>Redes y contacto</h2>
+              <p>Canales que deberían aparecer o recibir tráfico desde la web.</p>
+            </div>
+          </div>
+
+          <div class="social-row"><strong>Instagram</strong><input name="instagram" placeholder="https://instagram.com/tucuenta"></div>
+          <div class="social-row"><strong>Facebook</strong><input name="facebook" placeholder="https://facebook.com/tupagina"></div>
+          <div class="social-row"><strong>TikTok</strong><input name="tiktok" placeholder="https://tiktok.com/@tucuenta"></div>
+          <div class="social-row"><strong>YouTube</strong><input name="youtube" placeholder="https://youtube.com/@tucanal"></div>
+          <div class="social-row"><strong>Email comercial</strong><input type="email" name="email_comercial" placeholder="ventas@tumarca.com"></div>
+          <div class="social-row"><strong>Otro canal</strong><input name="otro_canal" placeholder="Nombre y enlace"></div>
+
+          <label class="field"><span>¿Qué canal querés priorizar?</span>
+            <select name="canal_prioritario">
+              <option value="">Seleccionar…</option>
+              <option>WhatsApp</option><option>Instagram</option><option>Email</option><option>Formulario de contacto</option><option>Compra directa en la web</option><option>Otro</option>
+            </select>
+          </label>
+        </section>
+
+        <!-- =================================================
+             SECCIÓN 05: DETALLES FINALES.
+        ================================================== -->
+        <section class="form-section card">
+          <div class="section-heading">
+            <div class="section-icon">05</div>
+            <div>
+              <h2>Últimos detalles</h2>
+              <p>Datos que ayudan a definir el alcance del proyecto.</p>
+            </div>
+          </div>
+
+          <div class="grid-2">
+            <label class="field"><span>¿Tenés logo?</span><select name="logo"><option value="">Seleccionar…</option><option>Sí, en buena calidad</option><option>Sí, pero necesito encontrarlo</option><option>No, necesito resolverlo</option></select></label>
+            <label class="field"><span>¿Tenés colores o tipografías definidos?</span><select name="identidad"><option value="">Seleccionar…</option><option>Sí, tengo identidad visual</option><option>Tengo algunas ideas</option><option>No, necesito orientación</option></select></label>
+          </div>
+
+          <div class="field">
+            <span class="field-label">Información que debería aparecer en la web</span>
+            <div class="choice-grid">
+              <label class="choice"><input type="checkbox" name="secciones" value="Quiénes somos">Quiénes somos</label>
+              <label class="choice"><input type="checkbox" name="secciones" value="Preguntas frecuentes">Preguntas frecuentes</label>
+              <label class="choice"><input type="checkbox" name="secciones" value="Envíos y devoluciones">Envíos y devoluciones</label>
+              <label class="choice"><input type="checkbox" name="secciones" value="Medios de pago">Medios de pago</label>
+              <label class="choice"><input type="checkbox" name="secciones" value="Ubicación y horarios">Ubicación y horarios</label>
+              <label class="choice"><input type="checkbox" name="secciones" value="Políticas y términos">Políticas y términos</label>
+            </div>
+          </div>
+
+          <label class="field"><span>Plazo ideal o fecha importante</span><input name="plazo" placeholder="Ej. Antes del lanzamiento de temporada"></label>
+          <label class="field"><span>Presupuesto estimado <small>(opcional)</small></span><select name="presupuesto"><option value="">Prefiero conversarlo</option><option>A definir</option><option>Inicial</option><option>Intermedio</option><option>Completo / a medida</option></select></label>
+          <label class="field"><span>Algo más que debamos saber</span><textarea name="notas" placeholder="Detalles, dudas, necesidades especiales o ideas que todavía no mencionaste."></textarea></label>
+
+          <label class="confirm-choice"><input type="checkbox" name="confirmacion" required><span>Confirmo que la información compartida es correcta y que tengo autorización para utilizar los materiales enviados. <b>*</b></span></label>
+        </section>
+
+        <!-- =================================================
+             ACCIONES: ENVÍO DEL FORMULARIO A LA BANDEJA.
+        ================================================== -->
+        <div class="submit-bar">
+          <div>
+            <strong>Todo listo</strong>
+            <p>Al enviar, el brief se convierte en una nueva conversación en tu bandeja privada.</p>
+          </div>
+          <button class="primary-button" type="submit">Enviar información <span>↗</span></button>
+        </div>
+      </form>
+    </main>
+
+    <!-- ===================================================
+         VISTA PRIVADA: BANDEJA ESTILO WHATSAPP.
+    ==================================================== -->
+    <main id="inboxView" class="inbox-view hidden">
+      <section class="inbox-shell">
+        <aside class="chat-list-panel">
+          <div class="panel-header">
+            <div>
+              <div class="eyebrow">Recepción</div>
+              <h2>Mensajes</h2>
+            </div>
+            <button id="backToForm" class="icon-button" type="button" title="Volver al formulario">↩</button>
+          </div>
+          <label class="search-box"><span>⌕</span><input id="chatSearch" type="search" placeholder="Buscar cliente o negocio…"></label>
+          <div id="chatList" class="chat-list"></div>
+        </aside>
+
+        <section class="chat-panel">
+          <div id="emptyChat" class="empty-chat">
+            <div class="empty-logo">✦</div>
+            <h3>Seleccioná una conversación</h3>
+            <p>Los formularios enviados desde esta web aparecerán acá como mensajes privados.</p>
+          </div>
+
+          <div id="activeChat" class="active-chat hidden">
+            <header class="chat-header">
+              <div class="avatar" id="chatAvatar">C</div>
+              <div class="chat-person">
+                <strong id="chatName">Cliente</strong>
+                <span id="chatMeta">Información del negocio</span>
+              </div>
+              <button id="downloadZip" class="chat-action" type="button">⬇ Descargar ZIP</button>
+            </header>
+
+            <div id="messageArea" class="message-area"></div>
+            <form id="replyForm" class="reply-bar">
+              <button class="icon-button" id="attachReply" type="button" title="Adjuntar archivos">＋</button>
+              <input id="replyFiles" type="file" multiple hidden>
+              <input id="replyText" type="text" placeholder="Escribí un mensaje…" autocomplete="off">
+              <button class="send-button" type="submit" title="Enviar">➤</button>
+            </form>
+          </div>
+        </section>
+      </section>
+    </main>
+
+    <!-- ===================================================
+         MODAL: CONFIRMACIÓN DE ENVÍO Y ACCESO A LA BANDEJA.
+    ==================================================== -->
+    <div id="successModal" class="modal hidden">
+      <div class="modal-card">
+        <div class="modal-icon">✓</div>
+        <h3>Información enviada</h3>
+        <p>El formulario se guardó como una nueva conversación. En el futuro, este paso enviará la información al servidor real.</p>
+        <div class="modal-actions">
+          <button id="closeModal" class="secondary-button" type="button">Cerrar</button>
+          <button id="openInboxFromModal" class="primary-button" type="button">Ver bandeja privada</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =====================================================
+       ARCHIVOS EXTERNOS: CSS + JS.
+  ====================================================== -->
+  <script src="app.js" defer></script>
+</body>
+</html>
