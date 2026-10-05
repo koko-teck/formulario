@@ -9,8 +9,8 @@
   ====================================================== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#071522">
-  <title>VEXA Estudio Page · Brief + Mensajería</title>
+  <meta name="theme-color" content="#111521">
+  <title>Estudio/Web · Brief + Mensajería</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -23,16 +23,9 @@
          HEADER: MARCA, ESTADO Y ACCESO AL PANEL PRIVADO.
     ==================================================== -->
     <header class="topbar">
-      <!-- ===================================================
-           MARCA: identidad visual de VEXA ESTUDIO PAGE.
-      ==================================================== -->
       <div class="brand-block">
-        <div class="brand">
-          <span class="brand-name">VEXA</span>
-          <span class="brand-divider">/</span>
-          <span class="brand-page">ESTUDIO PAGE</span>
-        </div>
-        <div class="brand-subtitle">Diseño y desarrollo web para emprendedores</div>
+        <div class="brand">ESTUDIO<span>/</span>WEB</div>
+        <div class="brand-subtitle">Brief + recepción de contenido</div>
       </div>
       <div class="topbar-actions">
         <span id="connectionBadge" class="status-badge"><i></i> Servidor conectado</span>
@@ -46,12 +39,67 @@
     <main id="clientView" class="client-view">
       <section class="hero-card">
         <div>
-          <div class="eyebrow">VEXA · ESTUDIO PAGE</div>
-          <h1>Convertí tu idea en una presencia web que haga crecer tu negocio.</h1>
-          <p>Contanos qué tenés en mente, compartí tus productos e imágenes y dejá que VEXA conozca la esencia de tu emprendimiento. Con tu información, podemos crear una web pensada para representar tu marca y conectar con tus clientes.</p>
+          <div class="eyebrow">Web para emprendedores</div>
+          <h1>Elegí el tipo de página que mejor se adapta a tu proyecto.</h1>
+          <p>Conocé los planes, sus alcances y los valores en pesos argentinos. Después completá el brief con toda la información de tu negocio.</p>
+          <a class="hero-price-link" href="#precios">Ver planes y precios <span>↓</span></a>
         </div>
-        <div class="hero-mark">
-          <img src="assets/vexa-mark.jpg" alt="Símbolo de VEXA Estudio Page">
+        <div class="hero-mark">✦</div>
+      </section>
+
+      <!-- =================================================
+           SECCIÓN DE PRECIOS: visible para el cliente antes del brief.
+      ================================================== -->
+      <section id="precios" class="pricing-section">
+        <div class="pricing-heading">
+          <div>
+            <div class="eyebrow">Planes y precios</div>
+            <h2>Elegí la solución para tu página web</h2>
+            <p>Todos los importes están expresados en pesos argentinos (ARS).</p>
+          </div>
+        </div>
+
+        <div class="pricing-grid">
+          <article class="price-card">
+            <div class="price-tag">CATÁLOGO</div>
+            <h3>Página de catálogos</h3>
+            <p class="price-description">Hasta 30 productos, página personalizada a gusto y redireccionamientos a redes sociales.</p>
+            <div class="price-amount"><span>$35.000</span><small>ARS</small></div>
+          </article>
+
+          <article class="price-card price-card-featured">
+            <div class="price-tag">DINÁMICA</div>
+            <h3>Página dinámica</h3>
+            <p class="price-description">Servidores, sala de chat, barra de búsqueda de productos, redireccionamientos a redes sociales, carrito y hasta 50 productos.</p>
+            <div class="price-amount"><span>$112.000</span><small>ARS</small></div>
+          </article>
+
+          <article class="price-card">
+            <div class="price-tag">CATÁLOGO + CARRITO</div>
+            <h3>Página de catálogos</h3>
+            <p class="price-description">Hasta 90 productos, redireccionamientos a redes sociales y carrito. Sin barra de búsqueda.</p>
+            <div class="price-amount"><span>$70.000</span><small>ARS</small></div>
+          </article>
+
+          <article class="price-card price-card-maintenance">
+            <div class="price-tag">MANTENIMIENTO</div>
+            <h3>Páginas no dinámicas</h3>
+            <p class="price-description">Actualizaciones y carga adicional de productos para páginas no dinámicas.</p>
+            <div class="maintenance-price">
+              <div><strong>$15.000</strong><span>por actualización</span></div>
+              <div><strong>$5.000</strong><span>por cada 20 productos nuevos</span></div>
+            </div>
+          </article>
+
+          <article class="price-card price-card-maintenance">
+            <div class="price-tag">MANTENIMIENTO</div>
+            <h3>Páginas dinámicas</h3>
+            <p class="price-description">Mantenimiento de la página dinámica más incorporación de productos nuevos.</p>
+            <div class="maintenance-price">
+              <div><strong>$95.000</strong><span>por mantenimiento</span></div>
+              <div><strong>$350</strong><span>por cada 5 productos nuevos</span></div>
+            </div>
+          </article>
         </div>
       </section>
 
@@ -222,7 +270,7 @@
         <div class="submit-bar">
           <div>
             <strong>Todo listo</strong>
-            <p>El primer paso para iniciar tu negocio web es enviar tu solicitud. ¡Estamos más cerca de hacer realidad tu proyecto!</p>
+            <p>Al enviar, el brief se guarda en el servidor y se convierte en una nueva conversación en tu bandeja privada.</p>
           </div>
           <button class="primary-button" type="submit">Enviar información <span>↗</span></button>
         </div>
@@ -237,7 +285,7 @@
         <aside class="chat-list-panel">
           <div class="panel-header">
             <div>
-              <div class="eyebrow">VEXA · RECEPCIÓN</div>
+              <div class="eyebrow">Recepción</div>
               <h2>Mensajes</h2>
             </div>
             <button id="backToForm" class="icon-button" type="button" title="Volver al formulario">↩</button>
@@ -248,7 +296,7 @@
 
         <section class="chat-panel">
           <div id="emptyChat" class="empty-chat">
-            <div class="empty-logo"><img src="assets/vexa-mark.jpg" alt="VEXA"></div>
+            <div class="empty-logo">✦</div>
             <h3>Seleccioná una conversación</h3>
             <p>Los formularios enviados desde esta web aparecerán acá como mensajes privados.</p>
           </div>
@@ -282,7 +330,7 @@
       <section class="client-chat-shell">
         <header class="client-chat-header">
           <div>
-            <div class="eyebrow">VEXA · TU CONVERSACIÓN</div>
+            <div class="eyebrow">Tu conversación</div>
             <strong id="clientChatTitle">Conversación</strong>
             <span id="clientChatMeta">Podés enviar mensajes y archivos.</span>
           </div>
@@ -305,7 +353,7 @@
       <div class="modal-card">
         <div class="modal-icon">✓</div>
         <h3>Información enviada</h3>
-        <p>Tu solicitud fue recibida. Podés volver a esta conversación desde este navegador para seguir compartiendo información con VEXA.</p>
+        <p>El formulario quedó guardado en el servidor. Podés volver a esta conversación desde este navegador para seguir escribiendo.</p>
         <div class="modal-actions">
           <button id="closeModal" class="secondary-button" type="button">Cerrar</button>
           <button id="openInboxFromModal" class="primary-button" type="button">Seguir conversación</button>

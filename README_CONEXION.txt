@@ -1,9 +1,3 @@
-ORGANIZACIÓN DEL CÓDIGO
-- index.html: estructura y textos visibles para el cliente y el panel privado.
-- styles.css: colores, distribución y diseño adaptable a pantallas.
-- app.js: comportamiento del formulario, productos, archivos, bandeja y chat.
-- supabase/functions/brief-api/index.ts: API del servidor, seguridad y almacenamiento.
-
 BRIEF + MENSAJERIA — VERSION CONECTADA A SUPABASE
 
 1. Ya existe el usuario administrador en Supabase Authentication.
