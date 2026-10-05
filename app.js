@@ -54,6 +54,13 @@ const el = {
   replyFiles: document.getElementById('replyFiles'),
   attachReply: document.getElementById('attachReply'),
   downloadZip: document.getElementById('downloadZip'),
+  deleteChat: document.getElementById('deleteChat'),
+  planPrincipalSelect: document.getElementById('planPrincipalSelect'),
+  planMantenimientoSelect: document.getElementById('planMantenimientoSelect'),
+  planPrincipalSummary: document.getElementById('planPrincipalSummary'),
+  planMantenimientoSummary: document.getElementById('planMantenimientoSummary'),
+  subtotalDisplay: document.getElementById('subtotalDisplay'),
+  subtotalInput: document.getElementById('subtotalInput'),
   successModal: document.getElementById('successModal'),
   closeModal: document.getElementById('closeModal'),
   openInboxFromModal: document.getElementById('openInboxFromModal'),
@@ -209,6 +216,45 @@ function updateProgress() {
   el.progressText.textContent = `${pct}% completado`;
 }
 
+/* =========================================================
+   MEJORA 07 — PLANES + SUBTOTAL.
+   Ubicación: app.js, antes de collectFormData().
+   Los precios visuales se recalculan desde los <option> y luego
+   el servidor vuelve a validar los precios antes de guardar.
+========================================================= */
+function formatARS(value) {
+  return new Intl.NumberFormat('es-AR', {
+    style: 'currency',
+    currency: 'ARS',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0
+  }).format(Number(value) || 0);
+}
+
+function getSelectedPlan(select) {
+  const option = select?.selectedOptions?.[0];
+  if (!option || !option.value) return {id: '', name: '', price: 0};
+  const cleanName = option.dataset.name || option.textContent.replace(/\s+—.*$/i, '').trim();
+  return {
+    id: option.value,
+    name: cleanName,
+    price: Number(option.dataset.price || 0) || 0
+  };
+}
+
+function updatePlanSummary() {
+  const principal = getSelectedPlan(el.planPrincipalSelect);
+  const maintenance = getSelectedPlan(el.planMantenimientoSelect);
+  const subtotal = principal.price + maintenance.price;
+
+  if (el.planPrincipalSummary) el.planPrincipalSummary.textContent = principal.name || 'Todavía no elegido';
+  if (el.planMantenimientoSummary) el.planMantenimientoSummary.textContent = maintenance.name || 'No por ahora';
+  if (el.subtotalDisplay) el.subtotalDisplay.textContent = `${formatARS(subtotal)} ARS`;
+  if (el.subtotalInput) el.subtotalInput.value = String(subtotal);
+
+  return {principal, maintenance, subtotal};
+}
+
 function collectFormData() {
   const formData = new FormData(el.briefForm);
   const data = {};
@@ -240,8 +286,18 @@ function collectBrandFiles() {
 }
 
 function buildBrief(data, products, brandFiles) {
+  const pricing = updatePlanSummary();
   return {
     ...data,
+    planes: {
+      plan_principal_id: pricing.principal.id,
+      plan_principal: pricing.principal.name,
+      precio_plan_principal: pricing.principal.price,
+      plan_mantenimiento_id: pricing.maintenance.id,
+      plan_mantenimiento: pricing.maintenance.name || 'No por ahora',
+      precio_plan_mantenimiento: pricing.maintenance.price,
+      subtotal: pricing.subtotal
+    },
     productos: products.map(product => ({
       numero: product.numero,
       ...product.datos,
@@ -281,6 +337,8 @@ function resetBriefForm() {
   productCount = 0;
   el.brandPreviews.innerHTML = '';
   addProduct();
+  document.querySelectorAll('.choose-plan-button').forEach(button => button.classList.remove('is-selected'));
+  updatePlanSummary();
   updateProgress();
 }
 
@@ -496,6 +554,45 @@ async function sendReply(event) {
   }
 }
 
+async function deleteThread() {
+  if (!currentThreadId) return;
+
+  const thread = allThreadsCache.find(item => item.id === currentThreadId) || {};
+  const clientName = thread.client_name || 'este cliente';
+  const businessName = thread.business_name || 'esta conversación';
+  const confirmed = window.confirm(
+    `¿Querés eliminar definitivamente la conversación de ${clientName} (${businessName})?\n\n` +
+    'También se eliminarán sus mensajes, imágenes, videos y el archivo TXT asociados. Esta acción no se puede deshacer.'
+  );
+  if (!confirmed) return;
+
+  const threadId = currentThreadId;
+  try {
+    if (el.deleteChat) {
+      el.deleteChat.disabled = true;
+      el.deleteChat.textContent = '⌛ Eliminando…';
+    }
+
+    await adminFetch(`/conversations?conversation_id=${encodeURIComponent(threadId)}`, {method:'DELETE'});
+
+    allThreadsCache = allThreadsCache.filter(item => item.id !== threadId);
+    currentThreadId = null;
+    el.messageArea.innerHTML = '';
+    el.activeChat.classList.add('hidden');
+    el.emptyChat.classList.remove('hidden');
+    renderChatList(el.chatSearch.value);
+    setConnection(true, 'Todo listo');
+  } catch (error) {
+    console.error(error);
+    alert(error.message || 'No se pudo eliminar la conversación.');
+  } finally {
+    if (el.deleteChat) {
+      el.deleteChat.disabled = false;
+      el.deleteChat.textContent = '🗑 Eliminar';
+    }
+  }
+}
+
 async function downloadThreadZip() {
   if (!currentThreadId) return;
   try {
@@ -606,48 +703,38 @@ function formatClock(date) { return new Intl.DateTimeFormat('es-AR', {hour:'2-di
 function formatListTime(date) { const d=new Date(date), now=new Date(); if(d.toDateString()===now.toDateString()) return formatClock(date); return new Intl.DateTimeFormat('es-AR',{day:'2-digit',month:'2-digit'}).format(d); }
 
 /* =========================================================
-   MEJORA: SELECCIÓN DINÁMICA DE PLANES Y PRECIOS.
-   Ubicación: app.js, antes de los listeners del formulario.
-   Qué hace: al pulsar "Elegir este plan/servicio", agrega la
-   opción al campo presupuesto, la selecciona y lleva al brief.
-   El valor queda incluido automáticamente en el envío a Supabase.
+   MEJORA 07 — SELECCIÓN DE PLAN PRINCIPAL Y MANTENIMIENTO.
+   Los botones de precios de arriba cargan la selección correspondiente.
+   El cliente puede combinar un plan principal con un mantenimiento.
 ========================================================= */
 document.querySelectorAll('.choose-plan-button').forEach(button => {
   button.addEventListener('click', () => {
-    const planName = button.dataset.plan;
-    const planPrice = button.dataset.price;
-    const budgetSelect = document.getElementById('presupuestoSelect');
+    const planType = button.dataset.planType || 'principal';
+    const planId = button.dataset.plan;
+    const targetSelect = planType === 'mantenimiento' ? el.planMantenimientoSelect : el.planPrincipalSelect;
+    if (!targetSelect || !planId) return;
 
-    if (!budgetSelect || !planName) return;
+    targetSelect.value = planId;
+    targetSelect.dispatchEvent(new Event('change', {bubbles:true}));
 
-    // Se crea la opción solo si todavía no existe, evitando duplicados.
-    let option = [...budgetSelect.options].find(item => item.value === planName);
-    if (!option) {
-      option = document.createElement('option');
-      option.value = planName;
-      option.textContent = `${planName} — ${planPrice}`;
-      budgetSelect.appendChild(option);
-    }
-
-    // El formulario guardará el nombre del plan seleccionado como presupuesto.
-    budgetSelect.value = planName;
-    budgetSelect.dispatchEvent(new Event('change', { bubbles: true }));
-    if (typeof updateProgress === 'function') updateProgress();
-
-    // Lleva al cliente al formulario para que complete los datos del proyecto.
-    document.getElementById('briefForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    budgetSelect.focus({ preventScroll: true });
-
-    // Feedback visual breve y accesible en el botón seleccionado.
-    const originalText = button.textContent;
-    button.textContent = '✓ Plan seleccionado';
+    document.querySelectorAll(`.choose-plan-button[data-plan-type="${planType}"]`).forEach(item => {
+      item.classList.remove('is-selected');
+    });
     button.classList.add('is-selected');
+
+    document.getElementById('briefForm')?.scrollIntoView({behavior:'smooth', block:'start'});
+    targetSelect.focus({preventScroll:true});
+
+    const originalText = button.textContent;
+    button.textContent = '✓ Seleccionado';
     window.setTimeout(() => {
       button.textContent = originalText;
-      button.classList.remove('is-selected');
     }, 1800);
   });
 });
+
+el.planPrincipalSelect?.addEventListener('change', updatePlanSummary);
+el.planMantenimientoSelect?.addEventListener('change', updatePlanSummary);
 
 el.briefForm.addEventListener('submit', async event => {
   event.preventDefault();
@@ -670,6 +757,7 @@ el.chatSearch.addEventListener('input', () => renderChatList(el.chatSearch.value
 el.replyForm.addEventListener('submit', sendReply);
 el.attachReply.addEventListener('click', () => el.replyFiles.click());
 el.downloadZip.addEventListener('click', downloadThreadZip);
+el.deleteChat.addEventListener('click', deleteThread);
 el.closeModal.addEventListener('click', () => el.successModal.classList.add('hidden'));
 el.openInboxFromModal.addEventListener('click', async () => { el.successModal.classList.add('hidden'); showClientChat(); });
 el.clientReplyForm.addEventListener('submit', async event => {
@@ -685,6 +773,7 @@ supabaseClient.auth.onAuthStateChange((_event, session) => {
 (async function init() {
   try {
     addProduct();
+    updatePlanSummary();
     updateProgress();
     setConnection(true, 'Todo listo');
     const hash = location.hash;

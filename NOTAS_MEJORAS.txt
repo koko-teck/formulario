@@ -9,16 +9,15 @@ Cada tarjeta incluye un botón con data-plan y data-price.
 - data-price: precio que aparece en el texto de la opción.
 Para cambiar los precios, editá también el precio visible en la tarjeta y el atributo data-price del botón correspondiente.
 
-2) CAMPO PRESUPUESTO DEL FORMULARIO
+2) SELECCIÓN DE PLANES DEL FORMULARIO
 Archivo: index.html
-Buscá: id="presupuestoSelect"
-La selección del plan se carga en este campo. Su valor se envía junto con el resto de las respuestas.
+Buscá: id="planPrincipalSelect" y id="planMantenimientoSelect"
+El cliente puede elegir un plan principal y, opcionalmente, un mantenimiento. El subtotal se muestra automáticamente.
 
 3) LÓGICA DINÁMICA
 Archivo: app.js
-Buscá: "MEJORA: SELECCIÓN DINÁMICA DE PLANES Y PRECIOS"
-Al pulsar un botón, la web agrega la opción si hace falta, la selecciona y desplaza al cliente al formulario.
-La lógica existente de envío a Supabase se mantiene.
+Buscá: "MEJORA 07 — SELECCIÓN DE PLAN PRINCIPAL Y MANTENIMIENTO"
+Los botones de las tarjetas seleccionan el plan correspondiente y actualizan el subtotal del formulario.
 
 4) APARIENCIA DE LOS BOTONES
 Archivo: styles.css
@@ -27,7 +26,7 @@ Ahí podés cambiar colores, bordes, tamaño y estados del botón.
 
 5) IMPORTANTE
 Se conservaron la estructura y el flujo existente del formulario, la bandeja de mensajes y la conexión con Supabase.
-Probá cada botón, verificá que el campo "Presupuesto estimado" quede seleccionado y enviá un formulario de prueba.
+Probá cada tarjeta, combiná un plan principal con un mantenimiento y verificá que el subtotal se actualice antes de enviar.
 
 MEJORA VISUAL VEXA
 ===================
@@ -53,3 +52,24 @@ MEJORA 06 — LOGOTIPO SUPERIOR COMPLETO (2026-10-05)
 
 - En pantallas muy angostas, se oculta el indicador técnico de conexión para priorizar espacio para el logo y el acceso.
 - Se suavizó un mensaje de error visible para clientes para evitar lenguaje técnico.
+
+
+MEJORA 07 — PLAN PRINCIPAL + MANTENIMIENTO + TXT (2026-10-05)
+================================================================
+- En `index.html` la sección final ahora permite elegir un plan principal y, de forma opcional, un plan de mantenimiento.
+- Las tarjetas de precios de arriba seleccionan automáticamente el tipo correcto de plan.
+- Se muestra un subtotal que suma el plan principal y el mantenimiento base.
+- En `app.js` la selección se refleja en tiempo real en el resumen y el subtotal.
+- En `supabase/functions/brief-api/index.ts` los precios se validan nuevamente en el servidor para evitar depender del importe enviado por el navegador.
+- Al enviar una solicitud, se crea automáticamente un archivo `.txt` con el formulario rellenado, los planes elegidos y el subtotal. El TXT no contiene imágenes ni videos.
+- El `.txt` se guarda como adjunto de la conversación, por lo que aparece en la bandeja junto a los demás archivos y también se incluye automáticamente al usar “Descargar ZIP”.
+- Para futuras modificaciones de precios, actualizar `MAIN_PLANS` y `MAINTENANCE_PLANS` en la Edge Function además de los valores visibles en `index.html`.
+
+MEJORA 08 — BORRAR CONSULTAS DESDE LA BANDEJA PRIVADA
+-------------------------------------------------------
+- En la conversación abierta del administrador aparece "🗑 Eliminar".
+- Pide confirmación antes de borrar.
+- Elimina la conversación, sus mensajes, el TXT del formulario y los demás archivos del Storage.
+- El endpoint de borrado exige sesión de administrador y no está disponible para el formulario público.
+- Frontend: index.html + app.js + styles.css. Backend: supabase/functions/brief-api/index.ts.
+- Para publicar este cambio hay que volver a desplegar la Edge Function brief-api junto con los archivos web.

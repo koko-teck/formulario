@@ -162,6 +162,9 @@ input[type=checkbox]{width:auto;accent-color:var(--accent)}
 .chat-person{min-width:0;flex:1}
 .chat-person strong{display:block;font-size:14px}
 .chat-person span{display:block;color:var(--muted);font-size:11px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.chat-header-actions{display:flex;align-items:center;justify-content:flex-end;gap:8px;flex-wrap:wrap}
+.chat-action.danger{border-color:rgba(255,95,120,.42);background:rgba(160,25,55,.12);color:#ffafbf}
+.chat-action.danger:hover{border-color:rgba(255,95,120,.68);background:rgba(170,25,55,.22);color:#ffd7df}
 .chat-action{background:#0a2437;color:#d7f7ff;border:1px solid var(--line);padding:9px 11px;border-radius:10px;font-size:11px;font-weight:800}
 .message-area{overflow:auto;padding:22px;background:radial-gradient(circle at top right,rgba(41,43,104,.15),transparent 40%),#020c15}
 .message-row{display:flex;margin:7px 0}
@@ -340,4 +343,29 @@ input[type=checkbox]{width:auto;accent-color:var(--accent)}
   .form-section{padding:20px 16px}
   .section-heading{gap:10px}
   .section-icon{width:38px;height:38px;border-radius:11px}
+}
+
+
+/* =========================================================
+   MEJORA 07 — SELECCIÓN DE PLANES Y SUBTOTAL.
+========================================================= */
+.plan-selection-grid{margin-bottom:4px}
+.plan-summary{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px;margin-top:4px;padding:14px;border:1px solid #1b4259;border-radius:14px;background:linear-gradient(145deg,#071b2a 0%,#04111c 100%)}
+.plan-summary>div{min-width:0;padding:10px 12px;border:1px solid #153449;border-radius:11px;background:#061522}
+.plan-summary span{display:block;color:var(--muted);font-size:10px;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+.plan-summary strong{display:block;margin-top:5px;color:#f1fbff;font-size:13px;line-height:1.4;word-break:break-word}
+.plan-summary-total{background:rgba(5,173,214,.08)!important;border-color:#12617e!important}
+.plan-summary-total strong{font-size:20px;color:#8ff5ff}
+.plan-note{margin-top:10px}
+@media(max-width:700px){
+  .plan-summary{grid-template-columns:1fr}
+}
+
+/* =========================================================
+   MEJORA 08 — ELIMINAR CONSULTAS EN ADMIN.
+   En celular se mantiene visible el botón de eliminar dentro de
+   la conversación privada; la descarga ZIP puede seguir oculta.
+========================================================= */
+@media(max-width:700px){
+  .chat-header-actions .chat-action.danger{display:inline-flex;align-items:center;justify-content:center}
 }

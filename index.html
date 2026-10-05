@@ -78,7 +78,7 @@
             <p class="price-description">Mostrá hasta 30 productos, con una página hecha a tu gusto y accesos directos a tus redes sociales.</p>
             <div class="price-amount"><span>$35.000</span><small>ARS</small></div>
             <!-- MEJORA: este botón selecciona el plan y lo carga automáticamente en el formulario. -->
-            <button class="choose-plan-button" type="button" data-plan="Página de catálogos (hasta 30 productos)" data-price="$35.000 ARS">Elegir esta opción →</button>
+            <button class="choose-plan-button" type="button" data-plan-type="principal" data-plan="catalogo_30" data-plan-name="Página de catálogos (hasta 30 productos)" data-price="35000">Elegir esta opción →</button>
           </article>
 
           <article class="price-card price-card-featured">
@@ -86,8 +86,8 @@
             <h3>Una página para vender y atender</h3>
             <p class="price-description">Mostrá hasta 50 productos, permití que te encuentren fácilmente, recibí consultas y facilitá los pedidos con carrito y buscador.</p>
             <div class="price-amount"><span>$112.000</span><small>ARS</small></div>
-            <!-- MEJORA: al elegir, se completa el presupuesto del brief con el plan dinámico. -->
-            <button class="choose-plan-button" type="button" data-plan="Página dinámica (hasta 50 productos)" data-price="$112.000 ARS">Elegir esta opción →</button>
+            <!-- MEJORA 07: este botón selecciona automáticamente el plan principal. -->
+            <button class="choose-plan-button" type="button" data-plan-type="principal" data-plan="dinamica_50" data-plan-name="Página dinámica (hasta 50 productos)" data-price="112000">Elegir esta opción →</button>
           </article>
 
           <article class="price-card">
@@ -96,7 +96,7 @@
             <p class="price-description">Mostrá hasta 90 productos y permití que tus clientes armen su pedido desde la página. También incluye accesos a tus redes.</p>
             <div class="price-amount"><span>$70.000</span><small>ARS</small></div>
             <!-- MEJORA: selección directa del catálogo con carrito. -->
-            <button class="choose-plan-button" type="button" data-plan="Página de catálogos con carrito (hasta 90 productos)" data-price="$70.000 ARS">Elegir esta opción →</button>
+            <button class="choose-plan-button" type="button" data-plan-type="principal" data-plan="catalogo_carrito_90" data-plan-name="Página de catálogos con carrito (hasta 90 productos)" data-price="70000">Elegir esta opción →</button>
           </article>
 
           <article class="price-card price-card-maintenance">
@@ -108,7 +108,7 @@
               <div><strong>$5.000</strong><span>por cada 20 productos nuevos</span></div>
             </div>
             <!-- MEJORA: permite seleccionar mantenimiento desde la sección de precios. -->
-            <button class="choose-plan-button" type="button" data-plan="Mantenimiento de página no dinámica: $15.000 por actualización + $5.000 por cada 20 productos nuevos" data-price="Precio según tarea">Consultar este servicio →</button>
+            <button class="choose-plan-button" type="button" data-plan-type="mantenimiento" data-plan="actualizacion_no_dinamica" data-plan-name="Mantenimiento de página no dinámica" data-price="15000">Elegir mantenimiento →</button>
           </article>
 
           <article class="price-card price-card-maintenance">
@@ -120,7 +120,7 @@
               <div><strong>$350</strong><span>por cada 5 productos nuevos</span></div>
             </div>
             <!-- MEJORA: permite seleccionar mantenimiento de página dinámica desde los precios. -->
-            <button class="choose-plan-button" type="button" data-plan="Mantenimiento de página dinámica: $95.000 por mantenimiento + $350 por cada 5 productos nuevos" data-price="Precio según tarea">Consultar este servicio →</button>
+            <button class="choose-plan-button" type="button" data-plan-type="mantenimiento" data-plan="mantenimiento_dinamica" data-plan-name="Mantenimiento de página dinámica" data-price="95000">Elegir mantenimiento →</button>
           </article>
         </div>
       </section>
@@ -280,14 +280,46 @@
           </div>
 
           <label class="field"><span>¿Hay alguna fecha importante?</span><input name="plazo" placeholder="Ej. Antes de una fecha especial, temporada o lanzamiento"></label>
-          <label class="field"><span>¿Hay algo que quieras contarnos sobre tu presupuesto? <small>(opcional)</small></span><select id="presupuestoSelect" name="presupuesto">
-              <option value="">Prefiero conversarlo</option>
-              <option value="A definir">A definir</option>
-              <option value="Inicial">Inicial</option>
-              <option value="Intermedio">Intermedio</option>
-              <option value="Completo / a medida">Completo / a medida</option>
-            </select>
-            <!-- MEJORA: el plan elegido desde las tarjetas se agrega/selecciona aquí y viaja en el envío del formulario. --></label>
+          <!-- =================================================
+               MEJORA: PLAN PRINCIPAL + MANTENIMIENTO + SUBTOTAL.
+               Los botones de precios de arriba completan estas opciones automáticamente.
+               Los valores de precio los valida nuevamente el servidor al recibir el formulario.
+          ================================================== -->
+          <div class="grid-2 plan-selection-grid">
+            <label class="field"><span>¿Qué página querés contratar? <b>*</b></span>
+              <select id="planPrincipalSelect" name="plan_principal" required>
+                <option value="">Elegí una opción…</option>
+                <option value="catalogo_30" data-price="35000">Página de catálogos (hasta 30 productos) — $35.000</option>
+                <option value="dinamica_50" data-price="112000">Página dinámica (hasta 50 productos) — $112.000</option>
+                <option value="catalogo_carrito_90" data-price="70000">Página de catálogos con carrito (hasta 90 productos) — $70.000</option>
+              </select>
+            </label>
+
+            <label class="field"><span>¿Querés sumar mantenimiento? <small>(opcional)</small></span>
+              <select id="planMantenimientoSelect" name="plan_mantenimiento">
+                <option value="" data-price="0">No por ahora — $0</option>
+                <option value="actualizacion_no_dinamica" data-price="15000">Mantenimiento de página no dinámica — desde $15.000</option>
+                <option value="mantenimiento_dinamica" data-price="95000">Mantenimiento de página dinámica — desde $95.000</option>
+              </select>
+            </label>
+          </div>
+
+          <div id="planSummary" class="plan-summary" aria-live="polite">
+            <div>
+              <span>Plan principal</span>
+              <strong id="planPrincipalSummary">Todavía no elegido</strong>
+            </div>
+            <div>
+              <span>Mantenimiento</span>
+              <strong id="planMantenimientoSummary">No por ahora</strong>
+            </div>
+            <div class="plan-summary-total">
+              <span>Subtotal</span>
+              <strong id="subtotalDisplay">$0 ARS</strong>
+              <input type="hidden" id="subtotalInput" name="subtotal" value="0">
+            </div>
+          </div>
+          <div class="info-note plan-note">El subtotal suma el valor del plan elegido y el mantenimiento base. Los adicionales por productos nuevos, cuando correspondan, se cotizan según la cantidad.</div>
           <label class="field"><span>¿Hay algo más que quieras contarnos?</span><textarea name="notas" placeholder="Podés escribir dudas, ideas, necesidades o cualquier detalle que consideres importante."></textarea></label>
 
           <label class="confirm-choice"><input type="checkbox" name="confirmacion" required><span>Confirmo que la información que compartí es correcta y que puedo usar las fotos y materiales enviados. <b>*</b></span></label>
@@ -339,7 +371,10 @@
                 <strong id="chatName">Cliente</strong>
                 <span id="chatMeta">Información del negocio</span>
               </div>
-              <button id="downloadZip" class="chat-action" type="button">⬇ Descargar ZIP</button>
+              <div class="chat-header-actions">
+                <button id="downloadZip" class="chat-action" type="button">⬇ Descargar ZIP</button>
+                <button id="deleteChat" class="chat-action danger" type="button" title="Eliminar esta conversación">🗑 Eliminar</button>
+              </div>
             </header>
 
             <div id="messageArea" class="message-area"></div>
