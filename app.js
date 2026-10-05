@@ -111,6 +111,7 @@ function setConnection(ok, text) {
   badge.classList.toggle('is-error', !ok);
 }
 
+/* MEJORA DE TEXTO PARA CLIENTES: los campos de productos usan palabras cotidianas. */
 function addProduct() {
   productCount += 1;
   const number = productCount;
@@ -123,22 +124,22 @@ function addProduct() {
       <button type="button" class="remove-button">Quitar</button>
     </div>
     <div class="grid-2">
-      <label class="field"><span>Nombre del producto</span><input data-key="nombre" placeholder="Nombre tal como debe aparecer"></label>
-      <label class="field"><span>Precio</span><input data-key="precio" placeholder="Ej. $25.000 o consultar"></label>
-      <label class="field"><span>Categoría / colección</span><input data-key="categoria" placeholder="Ej. Temporada otoño"></label>
-      <label class="field"><span>Código o SKU <small>(si corresponde)</small></span><input data-key="sku" placeholder="Ej. CAM-001"></label>
+      <label class="field"><span>¿Cómo se llama este producto?</span><input data-key="nombre" placeholder="Nombre del producto"></label>
+      <label class="field"><span>¿Qué precio tiene?</span><input data-key="precio" placeholder="Ej. $25.000 o a consultar"></label>
+      <label class="field"><span>¿A qué categoría pertenece?</span><input data-key="categoria" placeholder="Ej. Ropa, calzado, temporada…"></label>
+      <label class="field"><span>Código del producto <small>(solo si ya lo usás)</small></span><input data-key="sku" placeholder="Ej. CAM-001"></label>
     </div>
-    <label class="field"><span>Descripción y características</span><textarea data-key="descripcion" placeholder="Materiales, medidas, colores, beneficios, talles o variantes…"></textarea></label>
+    <label class="field"><span>Contanos un poco sobre el producto</span><textarea data-key="descripcion" placeholder="Colores, tamaños, materiales, medidas, beneficios o cualquier detalle que quieras mostrar."></textarea></label>
     <div class="field">
       <span class="field-label">Fotos y videos de este producto</span>
       <div class="file-box">
         <div class="file-box-icon">▧</div>
-        <div><strong>Seleccionar archivos</strong><p>Podés elegir varias imágenes y videos.</p></div>
-        <label class="file-button">Elegir<input data-key="archivos" type="file" multiple accept="image/*,video/*"></label>
+        <div><strong>Subí las fotos que tengas</strong><p>Podés elegir varias imágenes y videos.</p></div>
+        <label class="file-button">Elegir archivos<input data-key="archivos" type="file" multiple accept="image/*,video/*"></label>
       </div>
       <div class="preview-grid"></div>
     </div>
-    <label class="field"><span>Disponibilidad / variantes / notas</span><input data-key="notas" placeholder="Stock, talles, colores disponibles, etc."></label>
+    <label class="field"><span>¿Hay algo especial que debamos saber?</span><input data-key="notas" placeholder="Stock, tamaños, colores disponibles u otro detalle."></label>
   `;
 
   card.querySelector('.remove-button').addEventListener('click', () => {
@@ -264,13 +265,13 @@ async function submitBrief() {
   brandFiles.forEach(file => payload.append('file', file, file.name));
   products.forEach(product => product.files.forEach(file => payload.append(`producto_${product.numero}`, file, file.name)));
 
-  setConnection(true, 'Enviando al servidor…');
+  setConnection(true, 'Enviando tu información…');
   const result = await publicFetch('/submit', {method:'POST', body:payload});
-  if (!result.conversationId) throw new Error('El servidor no devolvió el identificador de conversación.');
+  if (!result.conversationId) throw new Error('No pudimos preparar tu conversación. Probá nuevamente.');
 
   clientConversationId = result.conversationId;
   localStorage.setItem(APP_CONFIG.clientConversationKey, clientConversationId);
-  setConnection(true, 'Servidor conectado');
+  setConnection(true, 'Todo listo');
   return result;
 }
 
@@ -348,7 +349,7 @@ async function signInAdmin(email, password) {
     setConnection(true, 'Iniciando sesión…');
     const {error} = await supabaseClient.auth.signInWithPassword({email:email.trim(), password});
     if (error) throw error;
-    setConnection(true, 'Servidor conectado');
+    setConnection(true, 'Todo listo');
     await showInbox();
   } catch (error) {
     console.error(error);
@@ -378,7 +379,7 @@ async function refreshConversations() {
     allThreadsCache = data.conversations || [];
     renderChatList(el.chatSearch.value);
     if (currentThreadId) await openThread(currentThreadId, false);
-    setConnection(true, 'Servidor conectado');
+    setConnection(true, 'Todo listo');
   } catch (error) {
     console.error(error);
     setConnection(false, 'Sin conexión');
@@ -656,7 +657,7 @@ el.briefForm.addEventListener('submit', async event => {
     resetBriefForm();
   } catch (error) {
     console.error(error);
-    setConnection(false, 'Error de conexión');
+    setConnection(false, 'No pudimos conectar');
     alert(error.message || 'No se pudo enviar el formulario.');
   }
 });
@@ -678,14 +679,14 @@ el.clientAttachReply.addEventListener('click', () => el.clientReplyFiles.click()
 el.closeClientChat.addEventListener('click', showForm);
 
 supabaseClient.auth.onAuthStateChange((_event, session) => {
-  if (session) setConnection(true, 'Servidor conectado');
+  if (session) setConnection(true, 'Todo listo');
 });
 
 (async function init() {
   try {
     addProduct();
     updateProgress();
-    setConnection(true, 'Servidor conectado');
+    setConnection(true, 'Todo listo');
     const hash = location.hash;
     if (hash.startsWith('#chat=')) {
       clientConversationId = decodeURIComponent(hash.slice(6));

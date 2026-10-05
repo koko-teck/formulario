@@ -28,3 +28,28 @@ Ahí podés cambiar colores, bordes, tamaño y estados del botón.
 5) IMPORTANTE
 Se conservaron la estructura y el flujo existente del formulario, la bandeja de mensajes y la conexión con Supabase.
 Probá cada botón, verificá que el campo "Presupuesto estimado" quede seleccionado y enviá un formulario de prueba.
+
+MEJORA VISUAL VEXA
+===================
+- Identidad visual centralizada en `styles.css` → bloque `:root{}` (azul eléctrico/cian + navy).
+- Logo principal: `assets/vexa-logo.jpg`. Se usa en el hero y en la vista vacía del panel.
+- Logo horizontal del encabezado: `assets/vexa-header.jpg`.
+- Ícono del isotipo: `assets/vexa-mark.jpg`.
+- Encabezado y hero modificados en `index.html`; buscá el comentario `MEJORA VISUAL VEXA`.
+- Ajustes específicos para celulares al final de `styles.css` dentro de `MEJORA VISUAL VEXA`.
+- No se modificó la lógica de Supabase, formularios, precios ni mensajería; los cambios son visuales y de presentación.
+
+
+MEJORA 05 — TEXTO CERCANO PARA CLIENTES (2026-10-05)
+- Se reemplazaron expresiones técnicas o internas por explicaciones simples y orientadas a beneficios.
+- El formulario ahora habla de “tu página”, “tu negocio” y “lo que necesitás”, evitando depender del término “brief”.
+- Los campos de productos también usan preguntas cotidianas para que una persona sin conocimientos informáticos pueda completarlos.
+- Las funciones internas, nombres de campos y valores enviados al sistema se mantienen para no romper la lógica actual.
+
+MEJORA 06 — LOGOTIPO SUPERIOR COMPLETO (2026-10-05)
+- El logotipo del encabezado ahora usa object-fit: contain y tamaño adaptable para evitar que la imagen se recorte.
+- En celulares se reduce proporcionalmente sin deformarlo ni cortarlo.
+- Ubicación para futuras modificaciones: styles.css → sección “MEJORA LOGOTIPO SUPERIOR”.
+
+- En pantallas muy angostas, se oculta el indicador técnico de conexión para priorizar espacio para el logo y el acceso.
+- Se suavizó un mensaje de error visible para clientes para evitar lenguaje técnico.

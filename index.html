@@ -9,8 +9,10 @@
   ====================================================== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#111521">
-  <title>Estudio/Web · Brief + Mensajería</title>
+  <meta name="theme-color" content="#041320">
+  <meta name="description" content="VEXA Estudio Page · Diseño de páginas web para tu negocio">
+  <link rel="icon" type="image/jpeg" href="assets/vexa-logo.jpg">
+  <title>VEXA · Estudio Page · Tu página web</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -23,13 +25,18 @@
          HEADER: MARCA, ESTADO Y ACCESO AL PANEL PRIVADO.
     ==================================================== -->
     <header class="topbar">
-      <div class="brand-block">
-        <div class="brand">ESTUDIO<span>/</span>WEB</div>
-        <div class="brand-subtitle">Brief + recepción de contenido</div>
-      </div>
+      <!-- =================================================
+           MEJORA VISUAL VEXA: logotipo principal del sitio.
+           Archivo: assets/vexa-logo.jpg
+           Para reemplazarlo por otra versión, cambiá solo el src.
+      ================================================== -->
+      <a class="brand-block" href="#" aria-label="VEXA Estudio Page">
+        <img class="brand-logo" src="assets/vexa-header.jpg" alt="VEXA Estudio Page">
+        <span class="brand-subtitle">Tu página, a tu medida</span>
+      </a>
       <div class="topbar-actions">
-        <span id="connectionBadge" class="status-badge"><i></i> Servidor conectado</span>
-        <button id="adminButton" class="ghost-button" type="button">Panel privado</button>
+        <span id="connectionBadge" class="status-badge"><i></i> Todo listo</span>
+        <button id="adminButton" class="ghost-button" type="button">Acceso privado</button>
       </div>
     </header>
 
@@ -39,12 +46,16 @@
     <main id="clientView" class="client-view">
       <section class="hero-card">
         <div>
-          <div class="eyebrow">Web para emprendedores</div>
-          <h1>Elegí el tipo de página que mejor se adapta a tu proyecto.</h1>
-          <p>Conocé los planes, sus alcances y los valores en pesos argentinos. Después completá el brief con toda la información de tu negocio.</p>
-          <a class="hero-price-link" href="#precios">Ver planes y precios <span>↓</span></a>
+          <!-- MEJORA DE TEXTO PARA CLIENTES: lenguaje simple, cercano y sin tecnicismos. -->
+          <div class="eyebrow">Tu negocio merece una buena presencia online</div>
+          <h1>Hagamos una página web que te represente y te ayude a llegar a más clientes.</h1>
+          <p>No necesitás saber de programación. Nosotros nos ocupamos de la parte técnica y vos solo nos contás cómo es tu negocio, qué ofrecés y qué te gustaría lograr.</p>
+          <a class="hero-price-link" href="#precios">Conocé las opciones y precios <span>↓</span></a>
         </div>
-        <div class="hero-mark">✦</div>
+        <!-- MEJORA VISUAL VEXA: sello de marca dentro del hero. -->
+        <div class="hero-logo-wrap">
+          <img class="hero-logo" src="assets/vexa-logo.jpg" alt="VEXA Estudio Page">
+        </div>
       </section>
 
       <!-- =================================================
@@ -53,68 +64,69 @@
       <section id="precios" class="pricing-section">
         <div class="pricing-heading">
           <div>
-            <div class="eyebrow">Planes y precios</div>
-            <h2>Elegí la solución para tu página web</h2>
-            <p>Todos los importes están expresados en pesos argentinos (ARS).</p>
+            <!-- MEJORA DE TEXTO PARA CLIENTES: explicar el servicio desde el beneficio. -->
+            <div class="eyebrow">Opciones para tu negocio</div>
+            <h2>Elegí la página que más se parezca a lo que necesitás</h2>
+            <p>Miralas con tranquilidad. Cuando elijas una, la vamos a cargar por vos en el formulario.</p>
           </div>
         </div>
 
         <div class="pricing-grid">
           <article class="price-card">
-            <div class="price-tag">CATÁLOGO</div>
-            <h3>Página de catálogos</h3>
-            <p class="price-description">Hasta 30 productos, página personalizada a gusto y redireccionamientos a redes sociales.</p>
+            <div class="price-tag">PARA MOSTRAR</div>
+            <h3>Tu negocio y tus productos</h3>
+            <p class="price-description">Mostrá hasta 30 productos, con una página hecha a tu gusto y accesos directos a tus redes sociales.</p>
             <div class="price-amount"><span>$35.000</span><small>ARS</small></div>
             <!-- MEJORA: este botón selecciona el plan y lo carga automáticamente en el formulario. -->
-            <button class="choose-plan-button" type="button" data-plan="Página de catálogos (hasta 30 productos)" data-price="$35.000 ARS">Elegir este plan →</button>
+            <button class="choose-plan-button" type="button" data-plan="Página de catálogos (hasta 30 productos)" data-price="$35.000 ARS">Elegir esta opción →</button>
           </article>
 
           <article class="price-card price-card-featured">
-            <div class="price-tag">DINÁMICA</div>
-            <h3>Página dinámica</h3>
-            <p class="price-description">Servidores, sala de chat, barra de búsqueda de productos, redireccionamientos a redes sociales, carrito y hasta 50 productos.</p>
-            <div class="price-amount"><span>$112.000</span><small>ARS</small></div>
+            <div class="price-tag">MÁS COMPLETA</div>
+            <h3>Una página para vender y atender</h3>
+            <p class="price-description">Mostrá hasta 50 productos, permití que te encuentren fácilmente, recibí consultas y facilitá los pedidos con carrito y buscador.</p>
+            <div class="price-amount"><span>$101.200</span><small>ARS</small></div>
             <!-- MEJORA: al elegir, se completa el presupuesto del brief con el plan dinámico. -->
-            <button class="choose-plan-button" type="button" data-plan="Página dinámica (hasta 50 productos)" data-price="$112.000 ARS">Elegir este plan →</button>
+            <button class="choose-plan-button" type="button" data-plan="Página dinámica (hasta 50 productos)" data-price="$101.200 ARS">Elegir esta opción →</button>
           </article>
 
           <article class="price-card">
-            <div class="price-tag">CATÁLOGO + CARRITO</div>
-            <h3>Página de catálogos</h3>
-            <p class="price-description">Hasta 90 productos, redireccionamientos a redes sociales y carrito. Sin barra de búsqueda.</p>
+            <div class="price-tag">PARA VENDER</div>
+            <h3>Catálogo con carrito</h3>
+            <p class="price-description">Mostrá hasta 90 productos y permití que tus clientes armen su pedido desde la página. También incluye accesos a tus redes.</p>
             <div class="price-amount"><span>$70.000</span><small>ARS</small></div>
             <!-- MEJORA: selección directa del catálogo con carrito. -->
-            <button class="choose-plan-button" type="button" data-plan="Página de catálogos con carrito (hasta 90 productos)" data-price="$70.000 ARS">Elegir este plan →</button>
+            <button class="choose-plan-button" type="button" data-plan="Página de catálogos con carrito (hasta 90 productos)" data-price="$70.000 ARS">Elegir esta opción →</button>
           </article>
 
           <article class="price-card price-card-maintenance">
-            <div class="price-tag">MANTENIMIENTO</div>
-            <h3>Páginas no dinámicas</h3>
-            <p class="price-description">Actualizaciones y carga adicional de productos para páginas no dinámicas.</p>
+            <div class="price-tag">PARA MANTENERLA</div>
+            <h3>Actualización de tu página</h3>
+            <p class="price-description">Ideal para cuando necesitás cambiar información, renovar contenido o sumar productos a una página ya creada.</p>
             <div class="maintenance-price">
               <div><strong>$15.000</strong><span>por actualización</span></div>
               <div><strong>$5.000</strong><span>por cada 20 productos nuevos</span></div>
             </div>
             <!-- MEJORA: permite seleccionar mantenimiento desde la sección de precios. -->
-            <button class="choose-plan-button" type="button" data-plan="Mantenimiento de página no dinámica: $15.000 por actualización + $5.000 por cada 20 productos nuevos" data-price="Precio según tarea">Elegir este servicio →</button>
+            <button class="choose-plan-button" type="button" data-plan="Mantenimiento de página no dinámica: $15.000 por actualización + $5.000 por cada 20 productos nuevos" data-price="Precio según tarea">Consultar este servicio →</button>
           </article>
 
           <article class="price-card price-card-maintenance">
-            <div class="price-tag">MANTENIMIENTO</div>
-            <h3>Páginas dinámicas</h3>
-            <p class="price-description">Mantenimiento de la página dinámica más incorporación de productos nuevos.</p>
+            <div class="price-tag">PARA MANTENERLA</div>
+            <h3>Cuidado de una página completa</h3>
+            <p class="price-description">Mantenemos tu página al día y también podemos ayudarte a sumar nuevos productos.</p>
             <div class="maintenance-price">
               <div><strong>$95.000</strong><span>por mantenimiento</span></div>
               <div><strong>$350</strong><span>por cada 5 productos nuevos</span></div>
             </div>
             <!-- MEJORA: permite seleccionar mantenimiento de página dinámica desde los precios. -->
-            <button class="choose-plan-button" type="button" data-plan="Mantenimiento de página dinámica: $95.000 por mantenimiento + $350 por cada 5 productos nuevos" data-price="Precio según tarea">Elegir este servicio →</button>
+            <button class="choose-plan-button" type="button" data-plan="Mantenimiento de página dinámica: $95.000 por mantenimiento + $350 por cada 5 productos nuevos" data-price="Precio según tarea">Consultar este servicio →</button>
           </article>
         </div>
       </section>
 
       <div class="client-progress card">
-        <div class="progress-title"><strong>Tu brief</strong><span id="progressText">0% completado</span></div>
+        <div class="progress-title"><strong>Tu página</strong><span id="progressText">0% completado</span></div>
         <div class="progress-track"><div id="progressFill" class="progress-fill"></div></div>
       </div>
 
@@ -126,20 +138,20 @@
           <div class="section-heading">
             <div class="section-icon">01</div>
             <div>
-              <h2>Conozcamos tu negocio</h2>
-              <p>Información esencial para entender quién sos y qué ofrecés.</p>
+              <h2>Contanos sobre tu negocio</h2>
+              <p>Con unas pocas respuestas vamos a entender qué hacés y cómo podemos ayudarte.</p>
             </div>
           </div>
 
           <div class="grid-2">
-            <label class="field"><span>Nombre del negocio / marca <b>*</b></span><input name="marca" required placeholder="Ej. Casa Nativa"></label>
-            <label class="field"><span>Persona de contacto <b>*</b></span><input name="contacto" required placeholder="Nombre y apellido"></label>
-            <label class="field"><span>Email de contacto <b>*</b></span><input type="email" name="email" required placeholder="hola@tumarca.com"></label>
-            <label class="field"><span>Rubro o actividad</span><input name="rubro" placeholder="Ej. Indumentaria, gastronomía…"></label>
+            <label class="field"><span>¿Cómo se llama tu negocio? <b>*</b></span><input name="marca" required placeholder="Ej. Casa Nativa"></label>
+            <label class="field"><span>¿Con quién tenemos el gusto? <b>*</b></span><input name="contacto" required placeholder="Nombre y apellido"></label>
+            <label class="field"><span>¿Dónde podemos escribirte? <b>*</b></span><input type="email" name="email" required placeholder="hola@tumarca.com"></label>
+            <label class="field"><span>¿Qué hacés o vendés?</span><input name="rubro" placeholder="Ej. Indumentaria, gastronomía…"></label>
           </div>
 
-          <label class="field"><span>Contanos brevemente sobre tu negocio</span><textarea name="descripcion" placeholder="¿Qué ofrecés, cómo empezó el proyecto y qué te diferencia?"></textarea></label>
-          <label class="field"><span>¿A qué público apuntás?</span><textarea name="publico" placeholder="Edad, ubicación, tipo de cliente, necesidades, etc."></textarea></label>
+          <label class="field"><span>Contanos brevemente sobre tu negocio</span><textarea name="descripcion" placeholder="Contanos con tus palabras qué hacés, qué vendés y qué te gustaría destacar."></textarea></label>
+          <label class="field"><span>¿Quiénes son tus clientes?</span><textarea name="publico" placeholder="Por ejemplo: familias, comerciantes, personas de tu ciudad, clientes que buscan un producto en particular…"></textarea></label>
         </section>
 
         <!-- =================================================
@@ -149,25 +161,25 @@
           <div class="section-heading">
             <div class="section-icon">02</div>
             <div>
-              <h2>La web que imaginás</h2>
-              <p>Objetivos, referencias y decisiones visuales.</p>
+              <h2>Cómo te gustaría que fuera tu página</h2>
+              <p>Contanos qué querés lograr y qué estilo te gusta. No hay respuestas correctas o incorrectas.</p>
             </div>
           </div>
 
           <div class="field">
-            <span class="field-label">¿Qué objetivos debería cumplir la web?</span>
+            <span class="field-label">¿Qué te gustaría conseguir con tu página?</span>
             <div class="choice-grid">
-              <label class="choice"><input type="checkbox" name="objetivos" value="Mostrar productos">Mostrar productos</label>
-              <label class="choice"><input type="checkbox" name="objetivos" value="Conseguir consultas">Conseguir consultas</label>
-              <label class="choice"><input type="checkbox" name="objetivos" value="Vender online">Vender online</label>
-              <label class="choice"><input type="checkbox" name="objetivos" value="Presentar la marca">Presentar la marca</label>
-              <label class="choice"><input type="checkbox" name="objetivos" value="Reservas / turnos">Reservas / turnos</label>
-              <label class="choice"><input type="checkbox" name="objetivos" value="Otro objetivo">Otro objetivo</label>
+              <label class="choice"><input type="checkbox" name="objetivos" value="Mostrar mis productos">Mostrar mis productos</label>
+              <label class="choice"><input type="checkbox" name="objetivos" value="Recibir consultas de clientes">Recibir consultas de clientes</label>
+              <label class="choice"><input type="checkbox" name="objetivos" value="Vender por internet">Vender por internet</label>
+              <label class="choice"><input type="checkbox" name="objetivos" value="Dar a conocer mi negocio">Dar a conocer mi negocio</label>
+              <label class="choice"><input type="checkbox" name="objetivos" value="Tomar reservas o turnos">Tomar reservas o turnos</label>
+              <label class="choice"><input type="checkbox" name="objetivos" value="Algo diferente">Algo diferente</label>
             </div>
           </div>
 
           <div class="field">
-            <span class="field-label">¿Qué estilo preferís?</span>
+            <span class="field-label">¿Qué estilo te gusta más?</span>
             <div class="choice-grid">
               <label class="choice"><input type="checkbox" name="estilo" value="Elegante">Elegante</label>
               <label class="choice"><input type="checkbox" name="estilo" value="Minimalista">Minimalista</label>
@@ -179,8 +191,8 @@
           </div>
 
           <div class="grid-2">
-            <label class="field"><span>Webs de referencia <small>(opcional)</small></span><textarea name="referencias" placeholder="Pegá enlaces o contanos qué sitios te gustan."></textarea></label>
-            <label class="field"><span>Colores o sensaciones que te gustaría usar</span><textarea name="colores" placeholder="Ej. negro, blanco, violeta, tecnológico, cálido…"></textarea></label>
+            <label class="field"><span>¿Hay alguna página que te guste? <small>(opcional)</small></span><textarea name="referencias" placeholder="Podés pegar un enlace o simplemente contarnos qué te gusta de una página que hayas visto."></textarea></label>
+            <label class="field"><span>¿Hay colores o un estilo que te gustaría usar?</span><textarea name="colores" placeholder="Por ejemplo: algo claro, elegante, con tonos azules, cálido, moderno…"></textarea></label>
           </div>
         </section>
 
@@ -191,24 +203,24 @@
           <div class="section-heading">
             <div class="section-icon">03</div>
             <div>
-              <h2>Productos y contenido</h2>
-              <p>Cargá los productos y adjuntá fotos o videos directamente desde este formulario.</p>
+              <h2>Fotos, productos y materiales</h2>
+              <p>Acá podés dejarnos las fotos, videos y datos que ya tenés. Nosotros nos ocupamos de acomodarlos en la página.</p>
             </div>
           </div>
 
           <div class="file-box">
             <div class="file-box-icon">⌁</div>
             <div>
-              <strong>Fotos y videos generales</strong>
-              <p>Logo, portada, fotos del local u otros materiales que no pertenezcan a un producto.</p>
+              <strong>Fotos y videos que ya tenés</strong>
+              <p>Podés subir tu logo, fotos del local, imágenes del negocio y otros materiales que quieras usar.</p>
             </div>
-            <label class="file-button">Seleccionar archivos<input id="brandFiles" type="file" multiple accept="image/*,video/*"></label>
+            <label class="file-button">Elegir fotos y videos<input id="brandFiles" type="file" multiple accept="image/*,video/*"></label>
           </div>
           <div id="brandPreviews" class="preview-grid"></div>
 
           <div id="productsList" class="products-list"></div>
           <button id="addProduct" class="secondary-button" type="button">+ Agregar otro producto</button>
-          <div class="info-note">Los archivos se guardan en el servidor privado y quedan asociados a esta conversación. Las fotos y videos no quedan almacenados en este navegador.</div>
+          <div class="info-note">Tus archivos quedan guardados de forma segura y asociados a tu conversación para que podamos trabajar con ellos.</div>
         </section>
 
         <!-- =================================================
@@ -218,8 +230,8 @@
           <div class="section-heading">
             <div class="section-icon">04</div>
             <div>
-              <h2>Redes y contacto</h2>
-              <p>Canales que deberían aparecer o recibir tráfico desde la web.</p>
+              <h2>Cómo querés que te contacten</h2>
+              <p>Dejanos tus redes y elegimos juntos cuál querés que tenga más protagonismo.</p>
             </div>
           </div>
 
@@ -230,7 +242,7 @@
           <div class="social-row"><strong>Email comercial</strong><input type="email" name="email_comercial" placeholder="ventas@tumarca.com"></div>
           <div class="social-row"><strong>Otro canal</strong><input name="otro_canal" placeholder="Nombre y enlace"></div>
 
-          <label class="field"><span>¿Qué canal querés priorizar?</span>
+          <label class="field"><span>¿Por dónde preferís que te contacten o te encuentren?</span>
             <select name="canal_prioritario">
               <option value="">Seleccionar…</option>
               <option>WhatsApp</option><option>Instagram</option><option>Email</option><option>Formulario de contacto</option><option>Compra directa en la web</option><option>Otro</option>
@@ -245,18 +257,18 @@
           <div class="section-heading">
             <div class="section-icon">05</div>
             <div>
-              <h2>Últimos detalles</h2>
-              <p>Datos que ayudan a definir el alcance del proyecto.</p>
+              <h2>Para terminar</h2>
+              <p>Estas últimas respuestas nos ayudan a preparar una propuesta que tenga sentido para vos.</p>
             </div>
           </div>
 
           <div class="grid-2">
-            <label class="field"><span>¿Tenés logo?</span><select name="logo"><option value="">Seleccionar…</option><option>Sí, en buena calidad</option><option>Sí, pero necesito encontrarlo</option><option>No, necesito resolverlo</option></select></label>
-            <label class="field"><span>¿Tenés colores o tipografías definidos?</span><select name="identidad"><option value="">Seleccionar…</option><option>Sí, tengo identidad visual</option><option>Tengo algunas ideas</option><option>No, necesito orientación</option></select></label>
+            <label class="field"><span>¿Ya tenés un logo?</span><select name="logo"><option value="">Seleccionar…</option><option>Sí, lo tengo listo</option><option>Sí, pero necesito encontrarlo</option><option>No, todavía no tengo</option></select></label>
+            <label class="field"><span>¿Ya tenés colores o letras que quieras usar?</span><select name="identidad"><option value="">Seleccionar…</option><option>Sí, ya los tengo</option><option>Tengo algunas ideas</option><option>No, necesito ayuda para elegir</option></select></label>
           </div>
 
           <div class="field">
-            <span class="field-label">Información que debería aparecer en la web</span>
+            <span class="field-label">¿Qué te gustaría que aparezca en tu página?</span>
             <div class="choice-grid">
               <label class="choice"><input type="checkbox" name="secciones" value="Quiénes somos">Quiénes somos</label>
               <label class="choice"><input type="checkbox" name="secciones" value="Preguntas frecuentes">Preguntas frecuentes</label>
@@ -267,8 +279,8 @@
             </div>
           </div>
 
-          <label class="field"><span>Plazo ideal o fecha importante</span><input name="plazo" placeholder="Ej. Antes del lanzamiento de temporada"></label>
-          <label class="field"><span>Presupuesto estimado <small>(opcional)</small></span><select id="presupuestoSelect" name="presupuesto">
+          <label class="field"><span>¿Hay alguna fecha importante?</span><input name="plazo" placeholder="Ej. Antes de una fecha especial, temporada o lanzamiento"></label>
+          <label class="field"><span>¿Hay algo que quieras contarnos sobre tu presupuesto? <small>(opcional)</small></span><select id="presupuestoSelect" name="presupuesto">
               <option value="">Prefiero conversarlo</option>
               <option value="A definir">A definir</option>
               <option value="Inicial">Inicial</option>
@@ -276,9 +288,9 @@
               <option value="Completo / a medida">Completo / a medida</option>
             </select>
             <!-- MEJORA: el plan elegido desde las tarjetas se agrega/selecciona aquí y viaja en el envío del formulario. --></label>
-          <label class="field"><span>Algo más que debamos saber</span><textarea name="notas" placeholder="Detalles, dudas, necesidades especiales o ideas que todavía no mencionaste."></textarea></label>
+          <label class="field"><span>¿Hay algo más que quieras contarnos?</span><textarea name="notas" placeholder="Podés escribir dudas, ideas, necesidades o cualquier detalle que consideres importante."></textarea></label>
 
-          <label class="confirm-choice"><input type="checkbox" name="confirmacion" required><span>Confirmo que la información compartida es correcta y que tengo autorización para utilizar los materiales enviados. <b>*</b></span></label>
+          <label class="confirm-choice"><input type="checkbox" name="confirmacion" required><span>Confirmo que la información que compartí es correcta y que puedo usar las fotos y materiales enviados. <b>*</b></span></label>
         </section>
 
         <!-- =================================================
@@ -286,10 +298,10 @@
         ================================================== -->
         <div class="submit-bar">
           <div>
-            <strong>Todo listo</strong>
-            <p>Al enviar, el brief se guarda en el servidor y se convierte en una nueva conversación en tu bandeja privada.</p>
+            <strong>¿Listo para avanzar?</strong>
+            <p>Revisá tus respuestas y envialas. Nosotros recibimos la información y nos ponemos a trabajar en tu proyecto.</p>
           </div>
-          <button class="primary-button" type="submit">Enviar información <span>↗</span></button>
+          <button class="primary-button" type="submit">Enviar mi información <span>↗</span></button>
         </div>
       </form>
     </main>
@@ -313,7 +325,9 @@
 
         <section class="chat-panel">
           <div id="emptyChat" class="empty-chat">
-            <div class="empty-logo">✦</div>
+            <div class="empty-logo">
+              <img src="assets/vexa-mark.jpg" alt="VEXA">
+            </div>
             <h3>Seleccioná una conversación</h3>
             <p>Los formularios enviados desde esta web aparecerán acá como mensajes privados.</p>
           </div>
@@ -369,11 +383,11 @@
     <div id="successModal" class="modal hidden">
       <div class="modal-card">
         <div class="modal-icon">✓</div>
-        <h3>Información enviada</h3>
-        <p>El formulario quedó guardado en el servidor. Podés volver a esta conversación desde este navegador para seguir escribiendo.</p>
+        <h3>¡Perfecto! Recibimos tu información</h3>
+        <p>Ya tenemos lo necesario para comenzar. Desde esta conversación también vamos a poder escribirte si necesitamos algún detalle más.</p>
         <div class="modal-actions">
           <button id="closeModal" class="secondary-button" type="button">Cerrar</button>
-          <button id="openInboxFromModal" class="primary-button" type="button">Seguir conversación</button>
+          <button id="openInboxFromModal" class="primary-button" type="button">Ver mi conversación</button>
         </div>
       </div>
     </div>
