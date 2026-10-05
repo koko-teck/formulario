@@ -604,6 +604,50 @@ function safeSegment(value) {
 function formatClock(date) { return new Intl.DateTimeFormat('es-AR', {hour:'2-digit', minute:'2-digit'}).format(new Date(date)); }
 function formatListTime(date) { const d=new Date(date), now=new Date(); if(d.toDateString()===now.toDateString()) return formatClock(date); return new Intl.DateTimeFormat('es-AR',{day:'2-digit',month:'2-digit'}).format(d); }
 
+/* =========================================================
+   MEJORA: SELECCIÓN DINÁMICA DE PLANES Y PRECIOS.
+   Ubicación: app.js, antes de los listeners del formulario.
+   Qué hace: al pulsar "Elegir este plan/servicio", agrega la
+   opción al campo presupuesto, la selecciona y lleva al brief.
+   El valor queda incluido automáticamente en el envío a Supabase.
+========================================================= */
+document.querySelectorAll('.choose-plan-button').forEach(button => {
+  button.addEventListener('click', () => {
+    const planName = button.dataset.plan;
+    const planPrice = button.dataset.price;
+    const budgetSelect = document.getElementById('presupuestoSelect');
+
+    if (!budgetSelect || !planName) return;
+
+    // Se crea la opción solo si todavía no existe, evitando duplicados.
+    let option = [...budgetSelect.options].find(item => item.value === planName);
+    if (!option) {
+      option = document.createElement('option');
+      option.value = planName;
+      option.textContent = `${planName} — ${planPrice}`;
+      budgetSelect.appendChild(option);
+    }
+
+    // El formulario guardará el nombre del plan seleccionado como presupuesto.
+    budgetSelect.value = planName;
+    budgetSelect.dispatchEvent(new Event('change', { bubbles: true }));
+    if (typeof updateProgress === 'function') updateProgress();
+
+    // Lleva al cliente al formulario para que complete los datos del proyecto.
+    document.getElementById('briefForm')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    budgetSelect.focus({ preventScroll: true });
+
+    // Feedback visual breve y accesible en el botón seleccionado.
+    const originalText = button.textContent;
+    button.textContent = '✓ Plan seleccionado';
+    button.classList.add('is-selected');
+    window.setTimeout(() => {
+      button.textContent = originalText;
+      button.classList.remove('is-selected');
+    }, 1800);
+  });
+});
+
 el.briefForm.addEventListener('submit', async event => {
   event.preventDefault();
   try {

@@ -65,6 +65,8 @@
             <h3>Página de catálogos</h3>
             <p class="price-description">Hasta 30 productos, página personalizada a gusto y redireccionamientos a redes sociales.</p>
             <div class="price-amount"><span>$35.000</span><small>ARS</small></div>
+            <!-- MEJORA: este botón selecciona el plan y lo carga automáticamente en el formulario. -->
+            <button class="choose-plan-button" type="button" data-plan="Página de catálogos (hasta 30 productos)" data-price="$35.000 ARS">Elegir este plan →</button>
           </article>
 
           <article class="price-card price-card-featured">
@@ -72,6 +74,8 @@
             <h3>Página dinámica</h3>
             <p class="price-description">Servidores, sala de chat, barra de búsqueda de productos, redireccionamientos a redes sociales, carrito y hasta 50 productos.</p>
             <div class="price-amount"><span>$112.000</span><small>ARS</small></div>
+            <!-- MEJORA: al elegir, se completa el presupuesto del brief con el plan dinámico. -->
+            <button class="choose-plan-button" type="button" data-plan="Página dinámica (hasta 50 productos)" data-price="$112.000 ARS">Elegir este plan →</button>
           </article>
 
           <article class="price-card">
@@ -79,6 +83,8 @@
             <h3>Página de catálogos</h3>
             <p class="price-description">Hasta 90 productos, redireccionamientos a redes sociales y carrito. Sin barra de búsqueda.</p>
             <div class="price-amount"><span>$70.000</span><small>ARS</small></div>
+            <!-- MEJORA: selección directa del catálogo con carrito. -->
+            <button class="choose-plan-button" type="button" data-plan="Página de catálogos con carrito (hasta 90 productos)" data-price="$70.000 ARS">Elegir este plan →</button>
           </article>
 
           <article class="price-card price-card-maintenance">
@@ -89,6 +95,8 @@
               <div><strong>$15.000</strong><span>por actualización</span></div>
               <div><strong>$5.000</strong><span>por cada 20 productos nuevos</span></div>
             </div>
+            <!-- MEJORA: permite seleccionar mantenimiento desde la sección de precios. -->
+            <button class="choose-plan-button" type="button" data-plan="Mantenimiento de página no dinámica: $15.000 por actualización + $5.000 por cada 20 productos nuevos" data-price="Precio según tarea">Elegir este servicio →</button>
           </article>
 
           <article class="price-card price-card-maintenance">
@@ -99,6 +107,8 @@
               <div><strong>$95.000</strong><span>por mantenimiento</span></div>
               <div><strong>$350</strong><span>por cada 5 productos nuevos</span></div>
             </div>
+            <!-- MEJORA: permite seleccionar mantenimiento de página dinámica desde los precios. -->
+            <button class="choose-plan-button" type="button" data-plan="Mantenimiento de página dinámica: $95.000 por mantenimiento + $350 por cada 5 productos nuevos" data-price="Precio según tarea">Elegir este servicio →</button>
           </article>
         </div>
       </section>
@@ -258,7 +268,14 @@
           </div>
 
           <label class="field"><span>Plazo ideal o fecha importante</span><input name="plazo" placeholder="Ej. Antes del lanzamiento de temporada"></label>
-          <label class="field"><span>Presupuesto estimado <small>(opcional)</small></span><select name="presupuesto"><option value="">Prefiero conversarlo</option><option>A definir</option><option>Inicial</option><option>Intermedio</option><option>Completo / a medida</option></select></label>
+          <label class="field"><span>Presupuesto estimado <small>(opcional)</small></span><select id="presupuestoSelect" name="presupuesto">
+              <option value="">Prefiero conversarlo</option>
+              <option value="A definir">A definir</option>
+              <option value="Inicial">Inicial</option>
+              <option value="Intermedio">Intermedio</option>
+              <option value="Completo / a medida">Completo / a medida</option>
+            </select>
+            <!-- MEJORA: el plan elegido desde las tarjetas se agrega/selecciona aquí y viaja en el envío del formulario. --></label>
           <label class="field"><span>Algo más que debamos saber</span><textarea name="notas" placeholder="Detalles, dudas, necesidades especiales o ideas que todavía no mencionaste."></textarea></label>
 
           <label class="confirm-choice"><input type="checkbox" name="confirmacion" required><span>Confirmo que la información compartida es correcta y que tengo autorización para utilizar los materiales enviados. <b>*</b></span></label>

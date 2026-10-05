@@ -1,0 +1,30 @@
+GUÍA DE MEJORAS — PLANES DINÁMICOS Y FORMULARIO
+================================================
+
+1) TARJETAS Y BOTONES DE PRECIOS
+Archivo: index.html
+Buscá: "SECCIÓN DE PRECIOS: visible para el cliente"
+Cada tarjeta incluye un botón con data-plan y data-price.
+- data-plan: texto que aparecerá como selección en el formulario.
+- data-price: precio que aparece en el texto de la opción.
+Para cambiar los precios, editá también el precio visible en la tarjeta y el atributo data-price del botón correspondiente.
+
+2) CAMPO PRESUPUESTO DEL FORMULARIO
+Archivo: index.html
+Buscá: id="presupuestoSelect"
+La selección del plan se carga en este campo. Su valor se envía junto con el resto de las respuestas.
+
+3) LÓGICA DINÁMICA
+Archivo: app.js
+Buscá: "MEJORA: SELECCIÓN DINÁMICA DE PLANES Y PRECIOS"
+Al pulsar un botón, la web agrega la opción si hace falta, la selecciona y desplaza al cliente al formulario.
+La lógica existente de envío a Supabase se mantiene.
+
+4) APARIENCIA DE LOS BOTONES
+Archivo: styles.css
+Buscá al final: "MEJORA: BOTONES PARA ELEGIR PRESUPUESTO"
+Ahí podés cambiar colores, bordes, tamaño y estados del botón.
+
+5) IMPORTANTE
+Se conservaron la estructura y el flujo existente del formulario, la bandeja de mensajes y la conexión con Supabase.
+Probá cada botón, verificá que el campo "Presupuesto estimado" quede seleccionado y enviá un formulario de prueba.
